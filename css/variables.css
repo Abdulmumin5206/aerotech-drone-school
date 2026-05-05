@@ -1,0 +1,25 @@
+/* Design tokens — colors, spacing primitives, motion */
+:root {
+  /* Color */
+  --bg: #000000;
+  --bg-2: #0a0a0a;
+  --line: rgba(255, 255, 255, 0.10);
+  --line-strong: rgba(255, 255, 255, 0.22);
+  --text: #ffffff;
+  --text-dim: rgba(255, 255, 255, 0.62);
+  --text-faint: rgba(255, 255, 255, 0.42);
+  --accent: #8B5CFF;
+  --accent-2: #B89BFF;
+
+  /* Typography */
+  --font-display: 'Instrument Sans', system-ui, sans-serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+
+  /* Layout */
+  --container-max: 1440px;
+  --container-pad: 48px;
+  --container-pad-mobile: 24px;
+
+  /* Motion */
+  --ease: cubic-bezier(0.4, 0, 0.2, 1);
+}

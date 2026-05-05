@@ -1,0 +1,190 @@
+/* Reusable UI components: buttons, accordions, scroll reveal */
+
+/* ---------- BUTTON: corner-bracket ---------- */
+.btn-bracket {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 18px 28px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text);
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.btn-bracket::before,
+.btn-bracket::after,
+.btn-bracket > span::before,
+.btn-bracket > span::after {
+  content: "";
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border: 1.5px solid var(--text);
+  transition: border-color 0.2s ease;
+}
+
+.btn-bracket::before {
+  top: 0;
+  left: 0;
+  border-right: 0;
+  border-bottom: 0;
+}
+
+.btn-bracket::after {
+  top: 0;
+  right: 0;
+  border-left: 0;
+  border-bottom: 0;
+}
+
+.btn-bracket > span {
+  position: relative;
+  display: inline-flex;
+}
+
+.btn-bracket > span::before {
+  bottom: -18px;
+  left: -28px;
+  border-right: 0;
+  border-top: 0;
+}
+
+.btn-bracket > span::after {
+  bottom: -18px;
+  right: -28px;
+  border-left: 0;
+  border-top: 0;
+}
+
+.btn-bracket:hover {
+  color: var(--accent-2);
+}
+
+.btn-bracket:hover::before,
+.btn-bracket:hover::after,
+.btn-bracket:hover > span::before,
+.btn-bracket:hover > span::after {
+  border-color: var(--accent);
+}
+
+/* ---------- BUTTON: link with arrow ---------- */
+.btn-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--line-strong);
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.btn-link:hover {
+  color: var(--accent-2);
+  border-color: var(--accent);
+}
+
+.btn-link svg {
+  width: 14px;
+  height: 14px;
+}
+
+/* ---------- ACCORDION (used by .advantage and .audience) ---------- */
+.accordion {
+  display: flex;
+  flex-direction: column;
+}
+
+.acc-item {
+  border-top: 1px solid var(--line);
+  padding: 28px 0;
+  cursor: pointer;
+}
+
+.acc-item:last-child {
+  border-bottom: 1px solid var(--line);
+}
+
+.acc-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 32px;
+}
+
+.acc-head h3 {
+  font-size: 22px;
+  font-weight: 500;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  max-width: 28ch;
+}
+
+.acc-toggle {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  position: relative;
+  margin-top: 6px;
+}
+
+.acc-toggle::before,
+.acc-toggle::after {
+  content: "";
+  position: absolute;
+  background: var(--text);
+  transition: transform 0.25s ease, opacity 0.25s ease;
+}
+
+.acc-toggle::before {
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 1.5px;
+  transform: translateY(-50%);
+}
+
+.acc-toggle::after {
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 1.5px;
+  transform: translateX(-50%);
+}
+
+.acc-item.open .acc-toggle::after {
+  transform: translateX(-50%) rotate(90deg);
+  opacity: 0;
+}
+
+.acc-body {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.35s ease, margin-top 0.35s ease;
+  color: var(--text-dim);
+  font-size: 14px;
+  line-height: 1.6;
+  max-width: 60ch;
+}
+
+.acc-item.open .acc-body {
+  max-height: 280px;
+  margin-top: 16px;
+}
+
+/* ---------- SCROLL REVEAL ---------- */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.9s ease, transform 0.9s ease;
+}
+
+.reveal.in {
+  opacity: 1;
+  transform: none;
+}
