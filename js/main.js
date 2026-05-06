@@ -58,9 +58,78 @@
     rows.forEach((row) => observer.observe(row));
   };
 
+  // Hide nav on scroll down, reveal on scroll up. Always white past the top
+  // so the slide-in starts from the white state (no dark flash).
+  const initNavScroll = () => {
+    const nav = document.querySelector('.nav');
+    if (!nav) return;
+    let lastY = window.scrollY;
+
+    const update = () => {
+      const y = window.scrollY;
+      if (y <= 10) {
+        nav.classList.remove('nav--hidden', 'nav--scrolled');
+      } else {
+        nav.classList.add('nav--scrolled');
+        if (y > lastY && y > 80) {
+          nav.classList.add('nav--hidden');
+        } else {
+          nav.classList.remove('nav--hidden');
+        }
+      }
+      lastY = y;
+    };
+
+    window.addEventListener('scroll', update, { passive: true });
+    update();
+  };
+
+  // Language switcher (visual only — set active state on click)
+  const initLangSwitch = () => {
+    const sw = document.querySelector('.lang-switch');
+    if (!sw) return;
+    sw.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        sw.querySelectorAll('a').forEach((a) => a.classList.remove('active'));
+        link.classList.add('active');
+      });
+    });
+  };
+
+  // Mobile menu drawer
+  const initMobileMenu = () => {
+    const btn = document.querySelector('.icon-btn--menu');
+    const menu = document.getElementById('mobileMenu');
+    const nav = document.querySelector('.nav');
+    if (!btn || !menu) return;
+
+    const open = () => {
+      menu.classList.add('open');
+      if (nav) nav.classList.remove('nav--hidden');
+      document.body.style.overflow = 'hidden';
+    };
+    const close = () => {
+      menu.classList.remove('open');
+      document.body.style.overflow = '';
+    };
+
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      menu.classList.contains('open') ? close() : open();
+    });
+    menu.querySelectorAll('a').forEach((a) => a.addEventListener('click', close));
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') close();
+    });
+  };
+
   document.addEventListener('DOMContentLoaded', () => {
     initAccordions();
     initScrollReveal();
     initProgramsSideNav();
+    initNavScroll();
+    initLangSwitch();
+    initMobileMenu();
   });
 })();
