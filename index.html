@@ -914,6 +914,253 @@
   </div>
 </footer>
 
+<!-- ============================================================
+     LEAD CAPTURE CTA — persistent right-edge drawer
+     ============================================================ -->
+<button class="cta-trigger" id="leadTrigger" type="button" aria-label="Open contact panel" aria-expanded="false" aria-controls="leadCTA">
+  <span class="cta-trigger__icon">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+      <path d="M21 11.5a8.4 8.4 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.4 8.4 0 0 1-3.8-.9L3 21l1.9-5.7a8.4 8.4 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.4 8.4 0 0 1 3.8-.9h.5a8.5 8.5 0 0 1 8 8z"/>
+    </svg>
+  </span>
+  <span class="cta-trigger__label">Contact</span>
+</button>
+
+<aside class="cta-popup" id="leadCTA" aria-hidden="true" role="dialog" aria-modal="false" aria-label="Talk to our team">
+  <div class="cta-popup__card">
+    <button class="cta-popup__close" type="button" aria-label="Close panel">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+        <path d="M6 6l12 12M18 6L6 18"/>
+      </svg>
+    </button>
+
+    <div class="cta-popup__scroll" id="leadScroll">
+      <div class="cta-popup__eyebrow">
+        <span class="cta-popup__mark">
+          <svg viewBox="0 0 32 32" fill="none">
+            <circle cx="16" cy="16" r="14.5" stroke="white" stroke-width="1.5"/>
+            <path d="M16 4 L16 28 M4 16 L28 16" stroke="white" stroke-width="1"/>
+            <path d="M9 9 L23 23 M23 9 L9 23" stroke="white" stroke-width="1" opacity="0.5"/>
+            <circle cx="16" cy="16" r="3" fill="white"/>
+          </svg>
+        </span>
+        Aerotech
+      </div>
+
+      <div class="cta-popup__panel cta-popup__panel--form">
+        <h3 class="cta-popup__title">Talk to our team.</h3>
+        <p class="cta-popup__sub">Leave your number or email and we'll reach out within one working day.</p>
+
+        <form class="cta-popup__form" id="leadForm" novalidate>
+          <label class="cta-popup__field">
+            <span class="cta-popup__vh" id="leadInputLabel">Phone or email</span>
+            <input
+              type="tel"
+              class="cta-popup__input"
+              id="leadInput"
+              name="contact"
+              placeholder="+998 __ ___ __ __"
+              aria-labelledby="leadInputLabel"
+              autocomplete="tel"
+              required
+            />
+          </label>
+
+          <div class="cta-popup__toggle" role="tablist" aria-label="Contact method">
+            <button type="button" class="cta-popup__toggle-btn is-active" data-mode="phone" role="tab" aria-selected="true">Phone</button>
+            <button type="button" class="cta-popup__toggle-btn" data-mode="email" role="tab" aria-selected="false">Email</button>
+          </div>
+
+          <div class="cta-popup__error" id="leadError" role="alert"></div>
+
+          <button type="submit" class="btn-bracket cta-popup__submit">
+            <span class="cta-popup__btn-label">Get a callback</span>
+          </button>
+
+          <p class="cta-popup__legal">By submitting you agree to be contacted by Aerotech.</p>
+        </form>
+      </div>
+
+      <div class="cta-popup__panel cta-popup__panel--success" aria-hidden="true">
+        <div class="cta-popup__check">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+            <circle cx="12" cy="12" r="10"/>
+            <path d="M8 12.5l3 3 5-6"/>
+          </svg>
+        </div>
+        <h3 class="cta-popup__title">We've got it.</h3>
+        <p class="cta-popup__sub">Talk soon.</p>
+      </div>
+
+      <div class="cta-popup__contact">
+        <div class="cta-popup__contact-head">Reach us directly</div>
+        <ul class="cta-popup__links">
+          <li>
+            <a href="tel:+998000000000" class="cta-popup__link">
+              <span class="cta-popup__link-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                </svg>
+              </span>
+              <span class="cta-popup__link-text">
+                <span class="cta-popup__link-label">Phone</span>
+                <span class="cta-popup__link-value">+998 (00) 000 00 00</span>
+              </span>
+              <span class="cta-popup__link-arrow" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 17 17 7M9 7h8v8"/></svg>
+              </span>
+            </a>
+          </li>
+          <li>
+            <a href="mailto:hello@aerotech.uz" class="cta-popup__link">
+              <span class="cta-popup__link-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <rect x="2" y="4" width="20" height="16" rx="2"/>
+                  <path d="m22 7-10 5L2 7"/>
+                </svg>
+              </span>
+              <span class="cta-popup__link-text">
+                <span class="cta-popup__link-label">Email</span>
+                <span class="cta-popup__link-value">hello@aerotech.uz</span>
+              </span>
+              <span class="cta-popup__link-arrow" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 17 17 7M9 7h8v8"/></svg>
+              </span>
+            </a>
+          </li>
+          <li>
+            <a href="https://t.me/aerotech" target="_blank" rel="noopener" class="cta-popup__link">
+              <span class="cta-popup__link-icon">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M22 4 2.5 11.5c-.7.3-.7 1.2 0 1.5l5 1.7L19 6.5c.5-.4 1-.1.6.3L9.4 16.4l-.4 5c0 .6.7.9 1.1.5l3-2.7 5 3.7c.6.4 1.4.1 1.5-.6L22.9 5c.2-.7-.4-1.3-.9-1z"/>
+                </svg>
+              </span>
+              <span class="cta-popup__link-text">
+                <span class="cta-popup__link-label">Telegram</span>
+                <span class="cta-popup__link-value">@aerotech</span>
+              </span>
+              <span class="cta-popup__link-arrow" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 17 17 7M9 7h8v8"/></svg>
+              </span>
+            </a>
+          </li>
+          <li>
+            <a href="https://instagram.com/aerotech" target="_blank" rel="noopener" class="cta-popup__link">
+              <span class="cta-popup__link-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <rect x="3" y="3" width="18" height="18" rx="5"/>
+                  <circle cx="12" cy="12" r="4"/>
+                  <circle cx="17.5" cy="6.5" r="0.6" fill="currentColor"/>
+                </svg>
+              </span>
+              <span class="cta-popup__link-text">
+                <span class="cta-popup__link-label">Instagram</span>
+                <span class="cta-popup__link-value">@aerotech</span>
+              </span>
+              <span class="cta-popup__link-arrow" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 17 17 7M9 7h8v8"/></svg>
+              </span>
+            </a>
+          </li>
+          <li>
+            <a href="#demo" class="cta-popup__link">
+              <span class="cta-popup__link-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                  <circle cx="12" cy="10" r="3"/>
+                </svg>
+              </span>
+              <span class="cta-popup__link-text">
+                <span class="cta-popup__link-label">Visit</span>
+                <span class="cta-popup__link-value">Tashkent · Yunusabad</span>
+              </span>
+              <span class="cta-popup__link-arrow" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 17 17 7M9 7h8v8"/></svg>
+              </span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</aside>
+
+<!-- ============================================================
+     OFFER MODAL — center popup, free trial promo
+     ============================================================ -->
+<aside class="offer-modal" id="offerModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="offerTitle">
+  <div class="offer-modal__backdrop" data-close></div>
+  <div class="offer-modal__card" role="document">
+    <button class="offer-modal__close" type="button" aria-label="Close">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+        <path d="M6 6l12 12M18 6L6 18"/>
+      </svg>
+    </button>
+
+    <div class="offer-modal__badge">
+      <span class="offer-modal__badge-pulse" aria-hidden="true"></span>
+      Trial Offer
+    </div>
+
+    <div class="offer-modal__panel offer-modal__panel--form">
+      <h2 class="offer-modal__title" id="offerTitle">Your first flight.<br>On us.</h2>
+      <p class="offer-modal__sub">Book a free 90-minute trial class. Meet the team, fly a drone, see the workshop. No card. No commitment.</p>
+
+      <ul class="offer-modal__features">
+        <li>
+          <span class="offer-modal__feature-mark" aria-hidden="true"></span>
+          <span>90-minute hands-on session at the flight lab</span>
+        </li>
+        <li>
+          <span class="offer-modal__feature-mark" aria-hidden="true"></span>
+          <span>One-on-one with an Aerotech instructor</span>
+        </li>
+        <li>
+          <span class="offer-modal__feature-mark" aria-hidden="true"></span>
+          <span>Fly a Tello, see real curriculum, no obligation</span>
+        </li>
+      </ul>
+
+      <form class="offer-modal__form" id="offerForm" novalidate>
+        <label class="offer-modal__field">
+          <span class="offer-modal__field-label">Phone number</span>
+          <input
+            type="tel"
+            class="offer-modal__input"
+            id="offerInput"
+            name="phone"
+            placeholder="+998 __ ___ __ __"
+            autocomplete="tel"
+            required
+          />
+        </label>
+
+        <div class="offer-modal__error" id="offerError" role="alert"></div>
+
+        <button type="submit" class="btn-bracket offer-modal__submit">
+          <span class="offer-modal__btn-label">Claim my free trial</span>
+        </button>
+
+        <div class="offer-modal__urgency">
+          <span class="offer-modal__urgency-dot" aria-hidden="true"></span>
+          March cohort · Limited spots remaining
+        </div>
+      </form>
+    </div>
+
+    <div class="offer-modal__panel offer-modal__panel--success" aria-hidden="true">
+      <div class="offer-modal__check">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+          <circle cx="12" cy="12" r="10"/>
+          <path d="M8 12.5l3 3 5-6"/>
+        </svg>
+      </div>
+      <h2 class="offer-modal__title">You're booked.</h2>
+      <p class="offer-modal__sub">We'll call within one working day to schedule your trial flight. Talk soon.</p>
+    </div>
+  </div>
+</aside>
+
 <script src="js/main.js"></script>
 </body>
 </html>
