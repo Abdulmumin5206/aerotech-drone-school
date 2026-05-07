@@ -39,11 +39,42 @@ section {
   backdrop-filter: blur(14px);
   background: rgba(0, 0, 0, 0.55);
   border-bottom: 1px solid var(--line);
-  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  transition:
+    background-color 0.3s ease,
+    border-color 0.3s ease,
+    transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+/* Slide-up: transform runs immediately; color flips wait until the bar is
+   off-screen so the white scrolled state is never seen on the visible bar. */
 .nav--hidden {
   transform: translateY(-100%);
+  transition:
+    background-color 0.3s ease 0.4s,
+    border-color 0.3s ease 0.4s,
+    transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.nav .logo,
+.nav .nav-links a,
+.nav .icon-btn,
+.nav .lang-switch,
+.nav .lang-switch a,
+.nav .logo-mark {
+  transition:
+    color 0.3s ease,
+    background-color 0.3s ease,
+    border-color 0.3s ease,
+    filter 0.3s ease;
+}
+
+.nav--hidden .logo,
+.nav--hidden .nav-links a,
+.nav--hidden .icon-btn,
+.nav--hidden .lang-switch,
+.nav--hidden .lang-switch a,
+.nav--hidden .logo-mark {
+  transition-delay: 0.4s;
 }
 
 .nav--scrolled {
@@ -247,9 +278,29 @@ section {
 
 /* ---------- FOOTER ---------- */
 .footer {
+  /* Locally flip color tokens so all existing var(--text)/var(--line) rules
+     cascade as dark-on-light without rewriting each child rule. */
+  --bg: #ffffff;
+  --text: #0a0a0a;
+  --text-dim: rgba(0, 0, 0, 0.62);
+  --text-faint: rgba(0, 0, 0, 0.42);
+  --line: rgba(0, 0, 0, 0.08);
+  --line-strong: rgba(0, 0, 0, 0.22);
+
   background: var(--bg);
+  color: var(--text);
   border-top: 1px solid var(--line);
   padding-bottom: 32px;
+}
+
+/* Logo mark SVG is white-stroked — invert for visibility on the white footer. */
+.footer .logo-mark {
+  filter: invert(1);
+}
+
+/* Social-icon hover bg was tuned for dark; flip for white. */
+.footer .footer-bottom .social a:hover {
+  background: rgba(0, 0, 0, 0.05);
 }
 
 .footer-cta {

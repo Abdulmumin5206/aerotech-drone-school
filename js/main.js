@@ -58,30 +58,45 @@
     rows.forEach((row) => observer.observe(row));
   };
 
-  // Hide nav on scroll down, reveal on scroll up. Always white past the top
-  // so the slide-in starts from the white state (no dark flash).
+  // Nav scroll behavior:
+  //  - At top / within ~0.85 viewport: keep at-top look (no white flash).
+  //  - Past that threshold: hide on scroll-down, slide back in white on scroll-up.
+  //  - The white state is paired with a CSS transition-delay so the color flip
+  //    happens after the slide-up — never visible on the bar.
   const initNavScroll = () => {
     const nav = document.querySelector('.nav');
     if (!nav) return;
-    let lastY = window.scrollY;
 
-    const update = () => {
+    let lastY = window.scrollY;
+    let ticking = false;
+
+    const apply = () => {
       const y = window.scrollY;
-      if (y <= 10) {
+      const goingDown = y > lastY;
+      const hideThreshold = window.innerHeight * 0.85;
+
+      if (y < hideThreshold) {
         nav.classList.remove('nav--hidden', 'nav--scrolled');
+      } else if (goingDown) {
+        nav.classList.add('nav--hidden', 'nav--scrolled');
       } else {
+        nav.classList.remove('nav--hidden');
         nav.classList.add('nav--scrolled');
-        if (y > lastY && y > 80) {
-          nav.classList.add('nav--hidden');
-        } else {
-          nav.classList.remove('nav--hidden');
-        }
       }
+
       lastY = y;
+      ticking = false;
     };
 
-    window.addEventListener('scroll', update, { passive: true });
-    update();
+    const onScroll = () => {
+      if (!ticking) {
+        requestAnimationFrame(apply);
+        ticking = true;
+      }
+    };
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    apply();
   };
 
   // Language switcher (visual only — set active state on click)
