@@ -167,8 +167,6 @@
     const STORAGE_AUTOSEEN = 'aerotech_cta_autoseen';  // cross-session cap timestamp
     const STORAGE_SUBMITTED = 'aerotech_cta_submitted'; // permanent block on conversion
     const CAP_MS = 3 * 24 * 60 * 60 * 1000; // 3-day cross-session cap
-    const SCROLL_THRESHOLD = 0.4;
-    const TIME_THRESHOLD_MS = 25000;
 
     const params = new URLSearchParams(location.search);
     const force = params.get('showcta') === '1';
@@ -287,33 +285,32 @@
       cleanupAutoTriggers();
     };
 
-    let ticking = false;
-    const onScroll = () => {
-      if (ticking) return;
-      ticking = true;
-      requestAnimationFrame(() => {
-        const doc = document.documentElement;
-        const scrolled = (window.scrollY + window.innerHeight) / doc.scrollHeight;
-        if (scrolled >= SCROLL_THRESHOLD) tryAutoOpen();
-        ticking = false;
-      });
-    };
-
-    const onExitIntent = (e) => {
-      if (e.clientY <= 0) tryAutoOpen();
-    };
-
-    const timerId = setTimeout(tryAutoOpen, TIME_THRESHOLD_MS);
-    window.addEventListener('scroll', onScroll, { passive: true });
-    if (window.innerWidth > 920) {
-      document.addEventListener('mouseleave', onExitIntent);
-    }
+    const demoSection = document.getElementById('demo');
+    const sectionObserver = demoSection
+      ? new IntersectionObserver(
+          (entries) => { if (entries[0].isIntersecting) tryAutoOpen(); },
+          { threshold: 0.2 }
+        )
+      : null;
+    if (sectionObserver) sectionObserver.observe(demoSection);
 
     const cleanupAutoTriggers = () => {
-      window.removeEventListener('scroll', onScroll);
-      clearTimeout(timerId);
-      document.removeEventListener('mouseleave', onExitIntent);
+      if (sectionObserver) sectionObserver.disconnect();
     };
+
+    // Slide the trigger out when the footer enters view so it doesn't overlap
+    // footer buttons/links. Uses a separate class from .is-hidden (drawer-open
+    // state) so the two states don't clobber each other.
+    const footer = document.querySelector('.footer');
+    if (footer) {
+      const footerObserver = new IntersectionObserver(
+        (entries) => {
+          trigger.classList.toggle('is-at-footer', entries[0].isIntersecting);
+        },
+        { threshold: 0, rootMargin: '0px 0px -40px 0px' }
+      );
+      footerObserver.observe(footer);
+    }
 
     // Mode toggle
     const input = popup.querySelector('#leadInput');
@@ -423,17 +420,13 @@
     const force = params.get('showoffer') === '1';
 
     // Killswitches up front — if blocked, never wire timers. Force overrides.
-    // Reloads bypass session/timestamp caps so refresh re-triggers the modal;
-    // only the redeemed flag still blocks (once submitted, never re-show).
     if (!force) {
       if (params.get('nooffer') === '1') return;
       try {
         if (localStorage.getItem(STORAGE_REDEEMED) === 'true') return;
-        if (!isReload) {
-          if (sessionStorage.getItem(SESSION_KEY) === 'true') return;
-          const seenAt = parseInt(localStorage.getItem(STORAGE_SEEN) || '0', 10);
-          if (seenAt && Date.now() - seenAt < CAP_MS) return;
-        }
+        if (sessionStorage.getItem(SESSION_KEY) === 'true') return;
+        const seenAt = parseInt(localStorage.getItem(STORAGE_SEEN) || '0', 10);
+        if (seenAt && Date.now() - seenAt < CAP_MS) return;
       } catch (_) {}
     }
 

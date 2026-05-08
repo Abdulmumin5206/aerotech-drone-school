@@ -768,24 +768,27 @@
   inset: 0;
 }
 
-.industry-visual svg {
+.industry-visual svg,
+.industry-visual img {
   width: 100%;
   height: 100%;
   display: block;
+  object-fit: cover;
 }
 
 .industry-hover {
   position: absolute;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.75);
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.72) 0%, rgba(0, 0, 0, 0.45) 55%, rgba(0, 0, 0, 0) 100%);
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 48px 40px;
+  align-items: flex-start;
+  padding: 120px 36px 32px;
   opacity: 0;
   transition: opacity 0.45s ease;
-  text-align: center;
+  text-align: left;
   z-index: 2;
 }
 
@@ -794,11 +797,11 @@
 }
 
 .industry-hover p {
-  color: rgba(255, 255, 255, 0.85);
+  color: rgba(255, 255, 255, 0.92);
   font-size: 15px;
   line-height: 1.65;
-  max-width: 28ch;
-  margin-bottom: 28px;
+  max-width: 32ch;
+  margin-bottom: 20px;
 }
 
 .industry-hover .btn-link {
