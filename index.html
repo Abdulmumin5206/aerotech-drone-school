@@ -102,50 +102,16 @@
      ADVANTAGE
      ============================================================ -->
 <section class="advantage reveal" id="advantage">
-  <div class="container">
+  <div class="container advantage-intro">
     <h2>The Aerotech<br>advantage</h2>
-    <div class="advantage-grid">
-      <div class="advantage-illu">
-        <svg viewBox="0 0 400 400" fill="none">
-          <defs>
-            <pattern id="bg-grid" width="20" height="20" patternUnits="userSpaceOnUse">
-              <path d="M20 0 L0 0 0 20" stroke="rgba(255,255,255,0.04)" stroke-width="0.5"/>
-            </pattern>
-          </defs>
-          <rect width="400" height="400" fill="url(#bg-grid)"/>
-          <line x1="80" y1="80" x2="160" y2="160" stroke="white" stroke-width="2"/>
-          <line x1="320" y1="80" x2="240" y2="160" stroke="white" stroke-width="2"/>
-          <line x1="80" y1="320" x2="160" y2="240" stroke="white" stroke-width="2"/>
-          <line x1="320" y1="320" x2="240" y2="240" stroke="white" stroke-width="2"/>
-          <circle cx="80" cy="80" r="42" stroke="white" stroke-width="1" opacity="0.6"/>
-          <circle cx="320" cy="80" r="42" stroke="white" stroke-width="1" opacity="0.6"/>
-          <circle cx="80" cy="320" r="42" stroke="white" stroke-width="1" opacity="0.6"/>
-          <circle cx="320" cy="320" r="42" stroke="white" stroke-width="1" opacity="0.6"/>
-          <line x1="50" y1="80" x2="110" y2="80" stroke="white" stroke-width="1.5"/>
-          <line x1="80" y1="50" x2="80" y2="110" stroke="white" stroke-width="1.5"/>
-          <line x1="290" y1="80" x2="350" y2="80" stroke="white" stroke-width="1.5"/>
-          <line x1="320" y1="50" x2="320" y2="110" stroke="white" stroke-width="1.5"/>
-          <line x1="50" y1="320" x2="110" y2="320" stroke="white" stroke-width="1.5"/>
-          <line x1="80" y1="290" x2="80" y2="350" stroke="white" stroke-width="1.5"/>
-          <line x1="290" y1="320" x2="350" y2="320" stroke="white" stroke-width="1.5"/>
-          <line x1="320" y1="290" x2="320" y2="350" stroke="white" stroke-width="1.5"/>
-          <rect x="160" y="160" width="80" height="80" stroke="white" stroke-width="2" fill="#000"/>
-          <rect x="175" y="175" width="50" height="50" stroke="white" stroke-width="1" opacity="0.5"/>
-          <circle cx="200" cy="200" r="6" fill="white"/>
-          <circle cx="200" cy="260" r="14" fill="#000" stroke="white" stroke-width="1.5"/>
-          <circle cx="200" cy="260" r="8" fill="#8B5CFF"/>
-          <g font-family="monospace" font-size="9" fill="rgba(255,255,255,0.55)">
-            <text x="50" y="40">M1</text>
-            <text x="340" y="40">M2</text>
-            <text x="50" y="370">M4</text>
-            <text x="340" y="370">M3</text>
-            <line x1="200" y1="200" x2="200" y2="140" stroke="rgba(255,255,255,0.3)" stroke-dasharray="2 2"/>
-            <text x="205" y="135">FCU</text>
-          </g>
-        </svg>
-      </div>
-      <div class="accordion">
-        <div class="acc-item open">
+  </div>
+  <div class="advantage-grid">
+    <div class="advantage-illu">
+      <img id="advantage-img" src="assets/images/1-aerotechadv.png" alt="Real flight time, not simulators." />
+    </div>
+    <div class="advantage-content">
+      <div class="accordion" id="advantage-acc">
+        <div class="acc-item open" data-illu="assets/images/1-aerotechadv.png">
           <div class="acc-head">
             <h3>Real flight time, not simulators.</h3>
             <span class="acc-toggle"></span>
@@ -154,7 +120,7 @@
             Every program includes structured flight hours on DJI Tello EDU and custom-built airframes. Students log indoor manoeuvres, GPS missions, and obstacle courses from week one. We measure progress in airtime and lines of code shipped — not lectures attended.
           </div>
         </div>
-        <div class="acc-item">
+        <div class="acc-item" data-illu="assets/images/industries-mapping.png">
           <div class="acc-head">
             <h3>Curriculum built by working engineers.</h3>
             <span class="acc-toggle"></span>
@@ -163,7 +129,7 @@
             Modules are designed alongside Tashkent-based UAV operators and university faculty. The same flight controllers, ROS stacks, and Python libraries used in industry are what students learn here.
           </div>
         </div>
-        <div class="acc-item">
+        <div class="acc-item" data-illu="assets/images/industries-inspection.png">
           <div class="acc-head">
             <h3>A workshop, not a classroom.</h3>
             <span class="acc-toggle"></span>
@@ -172,7 +138,7 @@
             Soldering stations, 3D printers, parts bins, and an indoor flight cage. Students disassemble, repair, and modify aircraft as part of the standard track.
           </div>
         </div>
-        <div class="acc-item">
+        <div class="acc-item" data-illu="assets/images/industries-mapping-green.png">
           <div class="acc-head">
             <h3>From hobby to career path.</h3>
             <span class="acc-toggle"></span>
@@ -500,6 +466,59 @@
         <h3>Fly <span class="accent">↗</span></h3>
         <p>Indoor flight cage and outdoor field practice. Real airtime, every cohort.</p>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     JOURNEY — sticky-scroll: video pinned left, text scrolls right
+     Swap each <source src="..."> below to use a different video per step.
+     ============================================================ -->
+<section class="journey reveal" id="journey">
+  <div class="container journey-intro">
+    <span class="eyebrow">The Student Journey</span>
+    <h2>From first line of code<br>to flight day.</h2>
+  </div>
+
+  <div class="journey-track">
+    <div class="journey-sticky">
+      <div class="journey-stage">
+        <video class="journey-video is-active" data-step="0" autoplay loop muted playsinline preload="auto">
+          <source src="assets/videos/DJI Tello EDU_1080p.mp4" type="video/mp4">
+        </video>
+        <video class="journey-video" data-step="1" loop muted playsinline preload="metadata">
+          <source src="assets/videos/DJI Tello EDU_1080p.mp4" type="video/mp4">
+        </video>
+        <video class="journey-video" data-step="2" loop muted playsinline preload="metadata">
+          <source src="assets/videos/DJI Tello EDU_1080p.mp4" type="video/mp4">
+        </video>
+        <div class="journey-stage-overlay" aria-hidden="true"></div>
+        <div class="journey-progress" aria-hidden="true">
+          <span class="is-active" data-step="0"></span>
+          <span data-step="1"></span>
+          <span data-step="2"></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="journey-steps">
+      <article class="journey-step is-active" data-step="0">
+        <span class="journey-step-num">01 / Code</span>
+        <h3>Day one:<br>your first line of flight code.</h3>
+        <p>Walk in with no programming background. By the end of week one you've written Python that takes a Tello off the ground, runs a square pattern, and lands. We teach by flying — every concept maps to a real maneuver in the air.</p>
+      </article>
+
+      <article class="journey-step" data-step="1">
+        <span class="journey-step-num">02 / Build</span>
+        <h3>Week six:<br>solder your own airframe.</h3>
+        <p>Move from off-the-shelf kits to custom builds. Brushless motors, ESCs, flight controllers, battery harnesses — assembled at our workbench. You flash the firmware, tune the PIDs, and the aircraft you fly is the one you built.</p>
+      </article>
+
+      <article class="journey-step" data-step="2">
+        <span class="journey-step-num">03 / Launch</span>
+        <h3>Graduation:<br>from code to career.</h3>
+        <p>Top students move into our operations division — aerial mapping, infrastructure inspection, commercial flight contracts. Others go on to university UAV programs or industry roles. The classroom is the start, not the finish.</p>
+      </article>
     </div>
   </div>
 </section>

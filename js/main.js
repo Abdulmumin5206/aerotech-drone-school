@@ -24,6 +24,28 @@
 
   // Accordion toggles (advantage + audience sections)
   const initAccordions = () => {
+    const advantageImg = document.getElementById('advantage-img');
+
+    const swapAdvantageImg = (src, alt) => {
+      if (!advantageImg || !src || advantageImg.getAttribute('src') === src) return;
+      const apply = () => {
+        advantageImg.src = src;
+        if (alt) advantageImg.alt = alt;
+      };
+      const reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (reduced) {
+        apply();
+        return;
+      }
+      advantageImg.classList.add('swapping');
+      const onEnd = () => {
+        apply();
+        advantageImg.classList.remove('swapping');
+        advantageImg.removeEventListener('transitionend', onEnd);
+      };
+      advantageImg.addEventListener('transitionend', onEnd);
+    };
+
     document.querySelectorAll('.acc-item, .aud-item').forEach((item) => {
       item.addEventListener('click', () => {
         const wasOpen = item.classList.contains('open');
@@ -31,7 +53,14 @@
         item.parentElement
           .querySelectorAll('.acc-item, .aud-item')
           .forEach((sibling) => sibling.classList.remove('open'));
-        if (!wasOpen) item.classList.add('open');
+        if (!wasOpen) {
+          item.classList.add('open');
+          const src = item.dataset.illu;
+          if (src) {
+            const heading = item.querySelector('h3');
+            swapAdvantageImg(src, heading ? heading.textContent.trim() : '');
+          }
+        }
       });
     });
   };
@@ -553,6 +582,53 @@
     });
   };
 
+  // Journey sticky-scroll: swap the active video as each text step crosses
+  // the middle of the viewport. Inactive videos pause to save CPU.
+  const initJourneyScroll = () => {
+    const track = document.querySelector('.journey-track');
+    if (!track) return;
+
+    const steps = track.querySelectorAll('.journey-step');
+    const videos = track.querySelectorAll('.journey-video');
+    const dots = track.querySelectorAll('.journey-progress span');
+    if (!steps.length || !videos.length) return;
+
+    const setActive = (idx) => {
+      steps.forEach((s, i) => s.classList.toggle('is-active', i === idx));
+      videos.forEach((v, i) => {
+        const isActive = i === idx;
+        v.classList.toggle('is-active', isActive);
+        if (isActive) {
+          const playPromise = v.play();
+          if (playPromise && typeof playPromise.catch === 'function') {
+            playPromise.catch(() => {});
+          }
+        } else {
+          v.pause();
+        }
+      });
+      dots.forEach((d, i) => d.classList.toggle('is-active', i === idx));
+    };
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const idx = [...steps].indexOf(entry.target);
+            if (idx !== -1) setActive(idx);
+          }
+        });
+      },
+      {
+        // Trigger when the step crosses the middle 40% of the viewport.
+        rootMargin: '-30% 0px -30% 0px',
+        threshold: 0,
+      }
+    );
+
+    steps.forEach((step) => observer.observe(step));
+  };
+
   document.addEventListener('DOMContentLoaded', () => {
     initAccordions();
     initScrollReveal();
@@ -562,5 +638,6 @@
     initMobileMenu();
     initLeadCTA();
     initOfferModal();
+    initJourneyScroll();
   });
 })();

@@ -1,5 +1,5 @@
 /* Section-specific styles: hero, statement, advantage, programs,
-   pillars, audience, numbers, demo */
+   pillars, journey, audience, numbers, demo */
 
 /* ---------- HERO ---------- */
 .hero {
@@ -219,7 +219,7 @@
   border-bottom: 1px solid var(--line);
 }
 
-.advantage h2 {
+.advantage-intro h2 {
   font-size: clamp(40px, 5.2vw, 72px);
   font-weight: 500;
   line-height: 1.05;
@@ -233,30 +233,62 @@
 
 .advantage-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 80px;
-  align-items: start;
+  grid-template-columns: 50vw 1fr;
+  align-items: stretch;
+  gap: 0;
+  padding-right: var(--container-pad);
 }
 
 .advantage-illu {
-  aspect-ratio: 1 / 1;
-  display: grid;
-  place-items: center;
+  position: relative;
   background: var(--bg);
+  overflow: hidden;
+  min-height: 600px;
 }
 
-.advantage-illu svg {
-  width: 70%;
-  height: auto;
+.advantage-illu img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  transition: opacity 400ms var(--ease);
+}
+
+.advantage-illu img.swapping {
+  opacity: 0;
+}
+
+.advantage-content {
+  display: flex;
+  align-items: center;
+  padding-left: 64px;
+}
+
+.advantage-content .accordion {
+  width: 100%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .advantage-illu img {
+    transition: none;
+  }
 }
 
 @media (max-width: 920px) {
   .advantage-grid {
     grid-template-columns: 1fr;
+    padding: 0 var(--container-pad);
     gap: 48px;
   }
   .advantage-illu {
+    min-height: 0;
     aspect-ratio: 16 / 10;
+  }
+  .advantage-content {
+    padding-left: 0;
   }
 }
 
@@ -885,5 +917,191 @@
   }
   .footer-cta {
     padding: 48px 0 64px;
+  }
+}
+
+/* ---------- JOURNEY (sticky scroll) ---------- */
+.journey {
+  padding: 140px 0 0;
+  border-bottom: 1px solid var(--line);
+  background: var(--bg);
+}
+
+.journey-intro {
+  margin-bottom: 80px;
+}
+
+.journey-intro .eyebrow {
+  margin-bottom: 24px;
+  display: inline-block;
+}
+
+.journey-intro h2 {
+  font-size: clamp(40px, 5.2vw, 72px);
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  max-width: 16ch;
+}
+
+.journey-track {
+  display: grid;
+  grid-template-columns: 58vw 1fr;
+  align-items: start;
+  gap: 0;
+  max-width: none;
+  margin: 0;
+  padding: 0 var(--container-pad) 0 0;
+}
+
+.journey-sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+}
+
+.journey-stage {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  border-radius: 0;
+  overflow: hidden;
+  background: var(--bg-2);
+}
+
+.journey-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 600ms var(--ease);
+  pointer-events: none;
+}
+
+.journey-video.is-active {
+  opacity: 1;
+}
+
+.journey-stage-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 60%, rgba(0, 0, 0, 0.55) 100%);
+  pointer-events: none;
+}
+
+.journey-progress {
+  position: absolute;
+  left: 24px;
+  bottom: 24px;
+  display: flex;
+  gap: 10px;
+  z-index: 2;
+}
+
+.journey-progress span {
+  width: 32px;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.25);
+  transition: background 400ms var(--ease), width 400ms var(--ease);
+}
+
+.journey-progress span.is-active {
+  background: var(--accent-2);
+  width: 48px;
+}
+
+.journey-steps {
+  display: flex;
+  flex-direction: column;
+  padding-left: 64px;
+}
+
+.journey-step {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 80px 0;
+  max-width: 520px;
+  opacity: 0.32;
+  transition: opacity 500ms var(--ease);
+}
+
+.journey-step.is-active {
+  opacity: 1;
+}
+
+.journey-step-num {
+  font-family: var(--font-body);
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent-2);
+  margin-bottom: 28px;
+}
+
+.journey-step h3 {
+  font-family: var(--font-display);
+  font-size: clamp(34px, 4vw, 56px);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.02;
+  margin: 0 0 28px;
+  color: var(--text);
+}
+
+.journey-step p {
+  font-size: 17px;
+  line-height: 1.6;
+  color: var(--text-dim);
+  max-width: 46ch;
+}
+
+@media (max-width: 920px) {
+  .journey {
+    padding-top: 88px;
+  }
+  .journey-intro {
+    margin-bottom: 48px;
+  }
+  .journey-track {
+    grid-template-columns: 1fr;
+    padding: 0 var(--container-pad-mobile);
+  }
+  .journey-sticky {
+    position: sticky;
+    top: 64px;
+    height: 60vh;
+    min-height: 380px;
+    margin-bottom: 24px;
+    z-index: 1;
+  }
+  .journey-stage {
+    border: 1px solid var(--line);
+    border-radius: 6px;
+  }
+  .journey-steps {
+    padding-left: 0;
+  }
+  .journey-step {
+    min-height: 80vh;
+    padding: 56px 0;
+  }
+  .journey-step h3 {
+    font-size: clamp(28px, 7vw, 40px);
+  }
+  .journey-step p {
+    font-size: 15px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .journey-video,
+  .journey-step,
+  .journey-progress span {
+    transition: none;
   }
 }
