@@ -184,6 +184,82 @@
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') close();
     });
+
+    // Expand/collapse mobile submenus inside the drawer
+    menu.querySelectorAll('.mobile-menu-toggle').forEach((toggle) => {
+      const submenuId = toggle.getAttribute('aria-controls');
+      const submenu = submenuId ? document.getElementById(submenuId) : null;
+      if (!submenu) return;
+      toggle.addEventListener('click', () => {
+        const isOpen = toggle.getAttribute('aria-expanded') === 'true';
+        toggle.setAttribute('aria-expanded', String(!isOpen));
+        if (isOpen) {
+          submenu.setAttribute('hidden', '');
+        } else {
+          submenu.removeAttribute('hidden');
+        }
+      });
+    });
+  };
+
+  // Desktop nav dropdown — hover intent (delayed close) + click for keyboard / touch
+  const initNavDropdown = () => {
+    const canHover = window.matchMedia('(hover: hover)').matches;
+
+    document.querySelectorAll('.nav-item.has-dropdown').forEach((item) => {
+      const trigger = item.querySelector('.nav-trigger');
+      if (!trigger) return;
+
+      trigger.addEventListener('click', (e) => {
+        // Trigger is still an anchor to #drone-school. On touch / keyboard
+        // activation, toggle the panel instead of jumping immediately so the
+        // user can choose a sub-item. Mouse clicks fall through.
+        const isTouch = window.matchMedia('(hover: none)').matches;
+        if (isTouch || e.detail === 0) {
+          e.preventDefault();
+          const open = item.classList.toggle('is-open');
+          trigger.setAttribute('aria-expanded', String(open));
+        }
+      });
+
+      // Hover intent: open on enter, close after a short grace period so the
+      // cursor can travel from the trigger down to the panel without it
+      // fading out and becoming unclickable on the way.
+      if (canHover) {
+        let closeTimer;
+        item.addEventListener('mouseenter', () => {
+          clearTimeout(closeTimer);
+          item.classList.add('is-open');
+          trigger.setAttribute('aria-expanded', 'true');
+        });
+        item.addEventListener('mouseleave', () => {
+          clearTimeout(closeTimer);
+          closeTimer = setTimeout(() => {
+            item.classList.remove('is-open');
+            trigger.setAttribute('aria-expanded', 'false');
+          }, 180);
+        });
+      }
+    });
+
+    document.addEventListener('click', (e) => {
+      document.querySelectorAll('.nav-item.has-dropdown.is-open').forEach((item) => {
+        if (!item.contains(e.target)) {
+          item.classList.remove('is-open');
+          const trig = item.querySelector('.nav-trigger');
+          if (trig) trig.setAttribute('aria-expanded', 'false');
+        }
+      });
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key !== 'Escape') return;
+      document.querySelectorAll('.nav-item.has-dropdown.is-open').forEach((item) => {
+        item.classList.remove('is-open');
+        const trig = item.querySelector('.nav-trigger');
+        if (trig) trig.setAttribute('aria-expanded', 'false');
+      });
+    });
   };
 
   // Lead-capture CTA — persistent right-edge drawer with auto-open + click trigger
@@ -634,6 +710,7 @@
     initScrollReveal();
     initProgramsSideNav();
     initNavScroll();
+    initNavDropdown();
     initLangSwitch();
     initMobileMenu();
     initLeadCTA();

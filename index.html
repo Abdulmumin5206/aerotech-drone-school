@@ -31,7 +31,17 @@
       Aerotech
     </a>
     <div class="nav-links">
-      <a href="#programs">Programs <span class="caret">▾</span></a>
+      <div class="nav-item has-dropdown">
+        <a href="drone-school/" class="nav-trigger">Drone School <span class="caret">▾</span></a>
+        <div class="nav-dropdown" role="menu" aria-label="Drone School">
+          <span class="nav-dropdown__label" aria-hidden="true">Drone School</span>
+          <a href="drone-school/" role="menuitem">Overview</a>
+          <a href="drone-school/#drone-programming" role="menuitem">Drone Programming</a>
+          <a href="drone-school/#drone-building" role="menuitem">Drone Building</a>
+          <a href="drone-school/#pilot-training" role="menuitem">Pilot Training</a>
+          <a href="drone-school/#education-partners" role="menuitem">For Schools &amp; Universities</a>
+        </div>
+      </div>
       <a href="#audience">Who We Teach <span class="caret">▾</span></a>
       <a href="#advantage">Why Aerotech <span class="caret">▾</span></a>
       <a href="#">Schedule</a>
@@ -56,7 +66,19 @@
 <!-- Mobile menu drawer (shown < 920px) -->
 <div class="mobile-menu" id="mobileMenu">
   <div class="mobile-menu-inner">
-    <a href="#programs">Programs</a>
+    <div class="mobile-menu-group">
+      <button type="button" class="mobile-menu-toggle" aria-expanded="false" aria-controls="mobileDsSubmenu">
+        Drone School
+        <span class="mobile-menu-caret" aria-hidden="true"></span>
+      </button>
+      <div class="mobile-submenu" id="mobileDsSubmenu" hidden>
+        <a href="drone-school/">Overview</a>
+        <a href="drone-school/#drone-programming">Drone Programming</a>
+        <a href="drone-school/#drone-building">Drone Building</a>
+        <a href="drone-school/#pilot-training">Pilot Training</a>
+        <a href="drone-school/#education-partners">For Schools &amp; Universities</a>
+      </div>
+    </div>
     <a href="#audience">Who We Teach</a>
     <a href="#industries">Industries</a>
     <a href="#advantage">Why Aerotech</a>
@@ -95,6 +117,35 @@
     <h2>We teach students<br>to think like pilots.</h2>
     <p>Today: drone education. Tomorrow: drone operations and services. Code, soldering iron, and a flight stick — that's the curriculum.</p>
     <button class="btn-bracket"><span>Download Syllabus</span></button>
+  </div>
+</section>
+
+<!-- ============================================================
+     DRONE SCHOOL TEASER — homepage signpost to inline /drone-school
+     ============================================================ -->
+<section class="ds-teaser reveal">
+  <div class="container">
+    <span class="eyebrow">Drone School</span>
+    <h2>Practical drone education for<br>students and future professionals.</h2>
+    <p>Learn drone programming with DJI Tello, build drones with FabLab, or prepare for professional drone pilot operation through hands-on training.</p>
+    <div class="ds-teaser-grid">
+      <a href="drone-school/#drone-programming" class="ds-teaser-card">
+        <span class="ds-teaser-card__tag">01</span>
+        <span class="ds-teaser-card__title">Drone Programming</span>
+        <span class="ds-teaser-card__desc">From visual blocks to autonomous Python missions on DJI Tello.</span>
+      </a>
+      <a href="drone-school/#drone-building" class="ds-teaser-card">
+        <span class="ds-teaser-card__tag">02</span>
+        <span class="ds-teaser-card__title">Drone Building</span>
+        <span class="ds-teaser-card__desc">Design, fabricate, and assemble a real engineering drone with FabLab.</span>
+      </a>
+      <a href="drone-school/#pilot-training" class="ds-teaser-card">
+        <span class="ds-teaser-card__tag">03</span>
+        <span class="ds-teaser-card__title">Official Pilot Training</span>
+        <span class="ds-teaser-card__desc">For adults preparing for legal and professional drone operation.</span>
+      </a>
+    </div>
+    <a href="drone-school/" class="btn-bracket ds-teaser-btn"><span>Explore Drone School</span></a>
   </div>
 </section>
 
@@ -838,12 +889,13 @@
       </div>
 
       <div class="footer-col">
-        <h4>School</h4>
-        <a href="#advantage" class="footer-link-lg">Why Aerotech</a>
+        <h4>Drone School</h4>
+        <a href="drone-school/" class="footer-link-lg">Overview</a>
         <ul>
-          <li><a href="#">Schedule</a></li>
-          <li><a href="#">Partnerships</a></li>
-          <li><a href="#demo">Visit the Lab</a></li>
+          <li><a href="drone-school/#drone-programming">Drone Programming</a></li>
+          <li><a href="drone-school/#drone-building">Drone Building</a></li>
+          <li><a href="drone-school/#pilot-training">Pilot Training</a></li>
+          <li><a href="drone-school/#education-partners">For Schools &amp; Universities</a></li>
         </ul>
       </div>
 

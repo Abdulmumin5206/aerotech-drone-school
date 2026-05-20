@@ -1105,3 +1105,761 @@
     transition: none;
   }
 }
+
+/* ============================================================
+   DRONE SCHOOL — homepage teaser + inline block
+   ============================================================ */
+
+/* ---------- HOMEPAGE TEASER ---------- */
+.ds-teaser {
+  padding: 140px 0;
+  border-bottom: 1px solid var(--line);
+  text-align: center;
+}
+
+.ds-teaser .eyebrow {
+  margin-bottom: 28px;
+}
+
+.ds-teaser h2 {
+  font-size: clamp(36px, 4.6vw, 64px);
+  font-weight: 500;
+  line-height: 1.05;
+  letter-spacing: -0.025em;
+  max-width: 22ch;
+  margin: 0 auto 24px;
+}
+
+.ds-teaser p {
+  max-width: 56ch;
+  margin: 0 auto;
+  color: var(--text-dim);
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.ds-teaser-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  margin: 64px 0 56px;
+  background: var(--line);
+  border: 1px solid var(--line);
+}
+
+.ds-teaser-card {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  align-items: flex-start;
+  padding: 36px 32px;
+  background: var(--bg);
+  text-align: left;
+  transition: background 0.25s var(--ease);
+}
+
+.ds-teaser-card:hover {
+  background: var(--bg-2);
+}
+
+.ds-teaser-card__tag {
+  font-family: var(--font-body);
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--accent-2);
+}
+
+.ds-teaser-card__title {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 500;
+  letter-spacing: -0.015em;
+  color: var(--text);
+  transition: color 0.2s var(--ease);
+}
+
+.ds-teaser-card:hover .ds-teaser-card__title {
+  color: var(--accent-2);
+}
+
+.ds-teaser-card__desc {
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--text-dim);
+}
+
+.ds-teaser-btn {
+  margin-top: 8px;
+}
+
+@media (max-width: 920px) {
+  .ds-teaser-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ---------- DRONE SCHOOL HERO / INTRO ---------- */
+.ds-hero {
+  position: relative;
+  padding: 160px 0 120px;
+  border-top: 1px solid var(--line-strong);
+  border-bottom: 1px solid var(--line);
+  text-align: center;
+  background:
+    radial-gradient(120% 80% at 50% 0%, rgba(139, 92, 255, 0.08) 0%, transparent 65%),
+    var(--bg);
+}
+
+.ds-hero .eyebrow {
+  margin-bottom: 32px;
+}
+
+.ds-hero__title {
+  font-size: clamp(44px, 6vw, 88px);
+  font-weight: 500;
+  line-height: 1.02;
+  letter-spacing: -0.03em;
+  max-width: 18ch;
+  margin: 0 auto 28px;
+}
+
+.ds-hero__sub {
+  max-width: 62ch;
+  margin: 0 auto 44px;
+  color: var(--text-dim);
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.ds-hero__ctas {
+  display: inline-flex;
+  align-items: center;
+  gap: 48px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* Video-background variant (used on dedicated /drone-school page) */
+.ds-hero--video {
+  height: 100vh;
+  height: 100svh;
+  min-height: 640px;
+  display: flex;
+  align-items: center;
+  padding: 100px 0;
+  overflow: hidden;
+  border-top: 0;
+  text-align: left;
+  background: var(--bg);
+}
+
+.ds-hero--video .ds-hero__bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1;
+}
+
+.ds-hero--video .ds-hero__overlay {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.4) 40%, rgba(0, 0, 0, 0.85) 100%),
+    radial-gradient(120% 80% at 30% 30%, rgba(0, 0, 0, 0.0) 0%, rgba(0, 0, 0, 0.55) 100%);
+  z-index: 2;
+}
+
+.ds-hero--video .ds-hero__content {
+  position: relative;
+  z-index: 3;
+  max-width: 880px;
+  margin: 0;
+}
+
+.ds-hero--video .ds-hero__title,
+.ds-hero--video .ds-hero__sub {
+  margin-left: 0;
+  margin-right: 0;
+  max-width: 22ch;
+}
+
+.ds-hero--video .ds-hero__sub {
+  max-width: 56ch;
+}
+
+.ds-hero--video .ds-hero__ctas {
+  justify-content: flex-start;
+}
+
+.ds-hero__meta {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 56px;
+  font-family: var(--font-body);
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.ds-hero__meta-dot {
+  width: 6px;
+  height: 6px;
+  background: #ff4444;
+  border-radius: 50%;
+  box-shadow: 0 0 0 0 rgba(255, 68, 68, 0.8);
+  animation: pulse 1.6s infinite;
+}
+
+@media (max-width: 920px) {
+  .ds-hero--video {
+    padding: 96px 0;
+  }
+}
+
+@media (max-width: 720px) {
+  .ds-hero {
+    padding: 96px 0 80px;
+  }
+  .ds-hero--video {
+    padding: 88px 0;
+  }
+  .ds-hero__ctas {
+    flex-direction: column;
+    gap: 24px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ds-hero--video .ds-hero__bg {
+    display: none;
+  }
+  .ds-hero__meta-dot {
+    animation: none;
+  }
+}
+
+/* ---------- PROGRAM OVERVIEW (3 cards) ---------- */
+.ds-programs {
+  padding: 140px 0;
+  border-bottom: 1px solid var(--line);
+  text-align: center;
+}
+
+.ds-programs__title {
+  font-size: clamp(36px, 4.8vw, 64px);
+  font-weight: 500;
+  line-height: 1.05;
+  letter-spacing: -0.025em;
+  margin: 0 auto 20px;
+}
+
+.ds-programs__sub {
+  max-width: 52ch;
+  margin: 0 auto 72px;
+  color: var(--text-dim);
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.ds-programs__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  border: 1px solid var(--line);
+  text-align: left;
+}
+
+.ds-program {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding: 0 0 44px;
+  border-right: 1px solid var(--line);
+  transition: background 0.25s var(--ease);
+}
+
+.ds-program:last-child {
+  border-right: 0;
+}
+
+.ds-program:hover {
+  background: var(--bg-2);
+}
+
+.ds-program__visual {
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  background: #050505;
+  border-bottom: 1px solid var(--line);
+  overflow: hidden;
+  margin-bottom: 12px;
+}
+
+.ds-program__visual svg,
+.ds-program__visual img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+.ds-program > :not(.ds-program__visual) {
+  margin-left: 36px;
+  margin-right: 36px;
+}
+
+.ds-program__visual + .ds-program__head {
+  margin-top: 12px;
+}
+
+.ds-program__head {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+}
+
+.ds-program__num {
+  font-family: var(--font-body);
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--accent-2);
+}
+
+.ds-program h3 {
+  font-size: 26px;
+  font-weight: 500;
+  letter-spacing: -0.015em;
+  line-height: 1.15;
+}
+
+.ds-program p {
+  color: var(--text-dim);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.ds-program__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  list-style: none;
+  padding: 0;
+  margin: 4px 0 0;
+}
+
+.ds-program__tags li {
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  padding: 5px 10px;
+  border: 1px solid var(--line);
+  color: var(--text-dim);
+}
+
+.ds-program .btn-link {
+  align-self: flex-start;
+  margin-top: 10px;
+}
+
+@media (max-width: 920px) {
+  .ds-programs__grid {
+    grid-template-columns: 1fr;
+  }
+  .ds-program {
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .ds-program:last-child {
+    border-bottom: 0;
+  }
+}
+
+/* ---------- DEEP DIVE SECTIONS ---------- */
+.ds-deepdive {
+  padding: 140px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.ds-deepdive__head {
+  max-width: 760px;
+  margin: 0 auto 72px;
+  text-align: center;
+}
+
+.ds-deepdive__head .eyebrow {
+  margin-bottom: 28px;
+}
+
+.ds-deepdive__head h2 {
+  font-size: clamp(36px, 5vw, 64px);
+  font-weight: 500;
+  line-height: 1.04;
+  letter-spacing: -0.025em;
+  margin-bottom: 24px;
+}
+
+.ds-deepdive__lede {
+  font-size: 18px;
+  line-height: 1.45;
+  color: var(--text);
+  margin-bottom: 18px;
+}
+
+.ds-deepdive__body {
+  font-size: 15px;
+  line-height: 1.65;
+  color: var(--text-dim);
+  max-width: 64ch;
+  margin: 0 auto;
+}
+
+/* Levels accordion within Drone Programming */
+.ds-levels {
+  max-width: 920px;
+  margin: 0 auto;
+}
+
+.ds-level .acc-head h3 {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 14px;
+  max-width: none;
+}
+
+.ds-level__num {
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--accent-2);
+}
+
+.ds-level .acc-item.open .acc-body,
+.ds-level.acc-item.open .acc-body {
+  max-height: 720px;
+}
+
+.ds-level .acc-body p {
+  margin-bottom: 14px;
+}
+
+.ds-level .acc-body p:last-child {
+  margin-bottom: 0;
+}
+
+/* Visual + intro split — sits above the accordion / lists in each deep-dive */
+.ds-feature {
+  display: grid;
+  grid-template-columns: 1.05fr 1fr;
+  align-items: stretch;
+  gap: 0;
+  margin-bottom: 96px;
+  border: 1px solid var(--line);
+  background: var(--bg);
+  overflow: hidden;
+}
+
+.ds-feature--flip .ds-feature__visual {
+  order: 2;
+  border-left: 1px solid var(--line);
+  border-right: 0;
+}
+
+.ds-feature--flip .ds-feature__content {
+  order: 1;
+}
+
+.ds-feature__visual {
+  position: relative;
+  background: #050505;
+  min-height: 480px;
+  border-right: 1px solid var(--line);
+  overflow: hidden;
+}
+
+.ds-feature__visual svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.ds-feature__visual--photo img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.ds-feature__visual--photo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.7) 100%);
+  pointer-events: none;
+}
+
+.ds-feature__visual-meta {
+  position: absolute;
+  left: 24px;
+  bottom: 24px;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-body);
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.ds-feature__content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 64px 56px;
+  gap: 14px;
+}
+
+.ds-feature__content .eyebrow {
+  margin-bottom: 6px;
+}
+
+.ds-feature__content h2 {
+  font-family: var(--font-display);
+  font-size: clamp(32px, 3.6vw, 48px);
+  font-weight: 500;
+  line-height: 1.04;
+  letter-spacing: -0.025em;
+  margin-bottom: 4px;
+}
+
+.ds-feature__content .ds-deepdive__lede {
+  font-size: 17px;
+  color: var(--text);
+}
+
+.ds-feature__content .ds-deepdive__body {
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--text-dim);
+  margin: 0;
+  max-width: 52ch;
+}
+
+@media (max-width: 920px) {
+  .ds-feature {
+    grid-template-columns: 1fr;
+    margin-bottom: 64px;
+  }
+  .ds-feature__visual,
+  .ds-feature--flip .ds-feature__visual {
+    order: 1;
+    border-right: 0;
+    border-left: 0;
+    border-bottom: 1px solid var(--line);
+    min-height: 0;
+    aspect-ratio: 4 / 3;
+  }
+  .ds-feature--flip .ds-feature__content {
+    order: 2;
+  }
+  .ds-feature__content {
+    padding: 40px 28px 44px;
+  }
+}
+
+/* Two-column lists for Building / Pilot Training */
+.ds-twocol {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  max-width: 1080px;
+  margin: 0 auto;
+}
+
+.ds-twocol__col {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.ds-twocol__label {
+  font-family: var(--font-body);
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--accent-2);
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--line);
+}
+
+.ds-points {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.ds-points li {
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--text);
+  padding: 14px 0;
+  border-bottom: 1px solid var(--line);
+  position: relative;
+  padding-left: 24px;
+}
+
+.ds-points li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 22px;
+  width: 10px;
+  height: 1px;
+  background: var(--accent);
+}
+
+.ds-points li:last-child {
+  border-bottom: 0;
+}
+
+.ds-points--two {
+  /* two-column dense list for long topic lists */
+}
+
+.ds-outcome {
+  margin-top: 12px;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--text-dim);
+}
+
+.ds-outcome strong {
+  color: var(--text);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-size: 11px;
+  font-weight: 500;
+  margin-right: 6px;
+}
+
+.ds-outcome--block {
+  margin-top: 28px;
+  padding-top: 24px;
+  border-top: 1px solid var(--line);
+}
+
+@media (max-width: 920px) {
+  .ds-twocol {
+    grid-template-columns: 1fr;
+    gap: 56px;
+  }
+}
+
+/* Education partners offer list */
+.ds-offer-list {
+  list-style: none;
+  margin: 0 auto;
+  padding: 0;
+  max-width: 760px;
+  border-top: 1px solid var(--line);
+}
+
+.ds-offer-list li {
+  display: flex;
+  align-items: baseline;
+  gap: 20px;
+  padding: 22px 0;
+  border-bottom: 1px solid var(--line);
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: -0.005em;
+  color: var(--text);
+  font-family: var(--font-display);
+  transition: color 0.2s var(--ease);
+}
+
+.ds-offer-list li:hover {
+  color: var(--accent-2);
+}
+
+.ds-offer-list__num {
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  color: var(--text-faint);
+  flex-shrink: 0;
+  min-width: 28px;
+}
+
+.ds-partners-cta-wrap {
+  display: flex;
+  justify-content: center;
+  margin-top: 48px;
+}
+
+/* ---------- FINAL CTA ---------- */
+.ds-final-cta {
+  padding: 140px 0;
+  border-bottom: 1px solid var(--line);
+  text-align: center;
+  background:
+    radial-gradient(80% 60% at 50% 100%, rgba(139, 92, 255, 0.07) 0%, transparent 70%),
+    var(--bg);
+}
+
+.ds-final-cta h2 {
+  font-size: clamp(40px, 5.4vw, 80px);
+  font-weight: 500;
+  line-height: 1.02;
+  letter-spacing: -0.03em;
+  margin-bottom: 24px;
+}
+
+.ds-final-cta p {
+  max-width: 52ch;
+  margin: 0 auto 44px;
+  color: var(--text-dim);
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.ds-final-cta__ctas {
+  display: inline-flex;
+  align-items: center;
+  gap: 48px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+@media (max-width: 720px) {
+  .ds-teaser,
+  .ds-programs,
+  .ds-deepdive,
+  .ds-final-cta {
+    padding: 88px 0;
+  }
+  .ds-teaser-grid {
+    margin: 48px 0 40px;
+  }
+  .ds-deepdive__head {
+    margin-bottom: 56px;
+  }
+  .ds-final-cta__ctas {
+    flex-direction: column;
+    gap: 24px;
+  }
+}
