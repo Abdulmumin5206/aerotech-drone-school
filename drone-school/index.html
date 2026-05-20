@@ -176,121 +176,143 @@
 
 <section class="ds-deepdive reveal" id="drone-programming">
   <div class="container">
-    <div class="ds-feature">
-      <div class="ds-feature__visual" aria-hidden="true">
-        <svg viewBox="0 0 600 600" preserveAspectRatio="xMidYMid slice">
-          <defs>
-            <pattern id="ddCodeGrid" width="30" height="30" patternUnits="userSpaceOnUse">
-              <path d="M30 0 L0 0 0 30" stroke="rgba(139,92,255,0.08)" stroke-width="0.5"/>
-            </pattern>
-          </defs>
-          <rect width="600" height="600" fill="#050505"/>
-          <rect width="600" height="600" fill="url(#ddCodeGrid)"/>
-          <rect x="60" y="110" width="480" height="380" rx="4" fill="#0a0a0a" stroke="rgba(255,255,255,0.18)"/>
-          <rect x="60" y="110" width="480" height="32" fill="#111" stroke="rgba(255,255,255,0.18)"/>
-          <circle cx="84" cy="126" r="5" fill="#ff5f56"/>
-          <circle cx="102" cy="126" r="5" fill="#ffbd2e"/>
-          <circle cx="120" cy="126" r="5" fill="#27c93f"/>
-          <text x="300" y="131" font-family="monospace" font-size="11" fill="rgba(255,255,255,0.4)" text-anchor="middle">mission.py — Aerotech / Level 2</text>
-          <g font-family="monospace" font-size="13.5" fill="rgba(255,255,255,0.85)">
-            <text x="80" y="175" fill="#666">01</text>
-            <text x="115" y="175" fill="#888">from djitellopy import Tello</text>
-            <text x="80" y="200" fill="#666">02</text>
-            <text x="80" y="225" fill="#666">03</text>
-            <text x="115" y="225" fill="#8B5CFF">def</text>
-            <text x="150" y="225">square_mission():</text>
-            <text x="80" y="250" fill="#666">04</text>
-            <text x="135" y="250">tello = Tello()</text>
-            <text x="80" y="275" fill="#666">05</text>
-            <text x="135" y="275">tello.connect()</text>
-            <text x="80" y="300" fill="#666">06</text>
-            <text x="135" y="300">tello.takeoff()</text>
-            <text x="80" y="325" fill="#666">07</text>
-            <text x="135" y="325" fill="#8B5CFF">for</text>
-            <text x="170" y="325">side <tspan fill="#8B5CFF">in</tspan> range(4):</text>
-            <text x="80" y="350" fill="#666">08</text>
-            <text x="155" y="350">tello.move_forward(80)</text>
-            <text x="80" y="375" fill="#666">09</text>
-            <text x="155" y="375">tello.rotate_clockwise(90)</text>
-            <text x="80" y="400" fill="#666">10</text>
-            <text x="135" y="400">tello.land()</text>
-            <text x="80" y="440" fill="#666">→</text>
-            <text x="115" y="440" fill="#27c93f">RUN</text>
-            <text x="80" y="465" fill="rgba(255,255,255,0.55)">  connected · battery 92%</text>
-            <text x="80" y="485" fill="rgba(255,255,255,0.55)">  takeoff... ok</text>
-            <text x="80" y="467" font-size="0" fill="transparent">.</text>
-          </g>
-          <g font-family="monospace" font-size="11" fill="rgba(255,255,255,0.55)">
-            <text x="40" y="60">// PROGRAM 01</text>
-            <text x="40" y="76" font-size="9" fill="rgba(255,255,255,0.4)">DRONE PROGRAMMING · DJI TELLO</text>
-          </g>
-        </svg>
-      </div>
-      <div class="ds-feature__content">
-        <span class="eyebrow">Program 01</span>
-        <h2>Drone Programming<br>with DJI Tello.</h2>
-        <p class="ds-deepdive__lede">From first flight commands to autonomous drone missions.</p>
-        <p class="ds-deepdive__body">This pathway introduces students to drones through safe indoor flight, visual programming, Python, mission planning, and autonomous drone projects using DJI Tello drones. DJI Tello is best suited to indoor learning — the easiest entry point for young learners and beginners.</p>
+    <div class="ds-pathway" data-carousel>
+      <header class="ds-pathway-head">
+        <h2>Code it. Fly it. Master it.</h2>
+        <div class="ds-carousel__nav">
+          <button class="ds-carousel__btn" data-dir="prev" type="button" aria-label="Previous level">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M15 6l-6 6 6 6"/></svg>
+          </button>
+          <span class="ds-carousel__counter"><span data-current>1</span> / 3</span>
+          <button class="ds-carousel__btn" data-dir="next" type="button" aria-label="Next level">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 6l6 6-6 6"/></svg>
+          </button>
+        </div>
+      </header>
+
+      <div class="ds-carousel">
+        <div class="ds-carousel__viewport">
+        <div class="ds-carousel__track">
+          <article class="ds-slide">
+            <div class="ds-slide__text">
+              <span class="ds-slide__step">Level 1 · Beginner</span>
+              <h3 class="ds-slide__title">Fly safely.<br>Build your first program.</h3>
+              <p class="ds-slide__body">Students learn flight safety, controls, takeoff and landing — then build their first program with drag-and-drop visual blocks. No code yet.</p>
+              <ul class="ds-slide__points">
+                <li>Drone Safety</li>
+                <li>Flight Controls</li>
+                <li>Visual Scripting</li>
+              </ul>
+            </div>
+            <div class="ds-slide__media">
+              <!-- Drop level-1.mp4 in assets/videos/ and update src -->
+              <video data-src="../assets/videos/DJI Tello EDU_1080p.mp4" poster="../assets/images/Drone_piloting.png" muted loop playsinline preload="none"></video>
+            </div>
+          </article>
+
+          <article class="ds-slide">
+            <div class="ds-slide__text">
+              <span class="ds-slide__step">Level 2 · Intermediate</span>
+              <h3 class="ds-slide__title">Switch to Python.<br>Plan real missions.</h3>
+              <p class="ds-slide__body">Students leave blocks behind and write Python that controls the drone — loops, functions, mission planning, and live debugging on a Tello.</p>
+              <ul class="ds-slide__points">
+                <li>Python Basics</li>
+                <li>Mission Planning</li>
+                <li>Debugging Flight</li>
+              </ul>
+            </div>
+            <div class="ds-slide__media">
+              <!-- Drop level-2.mp4 in assets/videos/ and update src -->
+              <video data-src="../assets/videos/DJI Tello EDU_1080p.mp4" poster="../assets/images/Drone_programming.png" muted loop playsinline preload="none"></video>
+            </div>
+          </article>
+
+          <article class="ds-slide">
+            <div class="ds-slide__text">
+              <span class="ds-slide__step">Level 3 · Advanced</span>
+              <h3 class="ds-slide__title">Build autonomy.<br>Ship a final project.</h3>
+              <p class="ds-slide__body">Computer vision, camera streams, object tracking, swarm concepts — and a final autonomous project that students design and ship themselves.</p>
+              <ul class="ds-slide__points">
+                <li>Computer Vision</li>
+                <li>Object Tracking</li>
+                <li>Final Project</li>
+              </ul>
+            </div>
+            <div class="ds-slide__media">
+              <!-- Drop level-3.mp4 in assets/videos/ and update src -->
+              <video data-src="../assets/videos/DJI Tello EDU_1080p.mp4" poster="../assets/images/industries-mapping.png" muted loop playsinline preload="none"></video>
+            </div>
+          </article>
+        </div>
       </div>
     </div>
+    </div>
 
-    <div class="ds-levels accordion">
-      <div class="acc-item ds-level open">
-        <div class="acc-head">
-          <h3><span class="ds-level__num">Level 1</span>Drone Basics &amp; Visual Programming</h3>
-          <span class="acc-toggle"></span>
-        </div>
-        <div class="acc-body">
-          <p>Students learn drone safety, basic flight logic, movement commands, and simple visual programming.</p>
-          <ul class="ds-points">
-            <li>What is a drone?</li>
-            <li>Drone safety</li>
-            <li>Takeoff and landing</li>
-            <li>Basic movement</li>
-            <li>Visual / Scratch-style programming</li>
-            <li>Simple command sequences</li>
-          </ul>
-          <p class="ds-outcome"><strong>Outcome:</strong> students can safely control a drone and create simple programmed movements.</p>
-        </div>
-      </div>
+    <div class="ds-course-header">
+      <span class="ds-course-header__label">Curriculum at a glance</span>
+      <span class="ds-course-header__legend"><span>Beginner</span><span class="dot"></span><span>Intermediate</span><span class="dot"></span><span>Advanced</span></span>
+    </div>
 
-      <div class="acc-item ds-level">
-        <div class="acc-head">
-          <h3><span class="ds-level__num">Level 2</span>Python Drone Missions</h3>
-          <span class="acc-toggle"></span>
+    <div class="ds-courses">
+      <article class="ds-course ds-course--1">
+        <div class="ds-course__media">
+          <img src="../assets/images/Drone_piloting.png" alt="Student learning basic drone flight" loading="lazy">
         </div>
-        <div class="acc-body">
-          <p>Students move from visual logic to Python and learn how to create planned drone missions.</p>
-          <ul class="ds-points">
-            <li>Python basics</li>
-            <li>Drone control with code</li>
-            <li>Variables, loops, conditions, functions</li>
-            <li>Mission planning</li>
-            <li>Debugging drone behavior</li>
+        <div class="ds-course__body">
+          <div class="ds-course__top">
+            <span class="ds-course__num">1</span>
+            <span class="ds-course__tag ds-course__tag--beginner">Beginner</span>
+          </div>
+          <h3 class="ds-course__title">Drone Basics<br>&amp; Visual Programming</h3>
+          <p class="ds-course__desc">Fly safely indoors. Build your first program using drag-and-drop blocks — no code yet.</p>
+          <ul class="ds-course__skills">
+            <li>Drone Safety</li>
+            <li>Flight Controls</li>
+            <li>Visual Scripting</li>
+            <li>Command Sequences</li>
           </ul>
-          <p class="ds-outcome"><strong>Outcome:</strong> students can write Python code to control drone missions.</p>
         </div>
-      </div>
+      </article>
 
-      <div class="acc-item ds-level">
-        <div class="acc-head">
-          <h3><span class="ds-level__num">Level 3</span>Autonomous Drone Projects</h3>
-          <span class="acc-toggle"></span>
+      <article class="ds-course ds-course--2">
+        <div class="ds-course__media">
+          <img src="../assets/images/Drone_programming.png" alt="Student writing Python code for a drone mission" loading="lazy">
         </div>
-        <div class="acc-body">
-          <p>Students create more advanced drone projects using mission logic, camera concepts, and autonomous behavior.</p>
-          <ul class="ds-points">
-            <li>Advanced mission logic</li>
-            <li>Multi-step missions</li>
-            <li>Camera and video-stream basics</li>
-            <li>Introduction to computer vision</li>
-            <li>Object tracking concepts</li>
-            <li>Final autonomous project</li>
-            <li>Swarm / multi-drone concepts when equipment allows</li>
+        <div class="ds-course__body">
+          <div class="ds-course__top">
+            <span class="ds-course__num">2</span>
+            <span class="ds-course__tag ds-course__tag--intermediate">Intermediate</span>
+          </div>
+          <h3 class="ds-course__title">Python<br>Drone Missions</h3>
+          <p class="ds-course__desc">Move from blocks to real code. Plan, write, and debug full Python missions on a Tello.</p>
+          <ul class="ds-course__skills">
+            <li>Python Basics</li>
+            <li>Loops &amp; Functions</li>
+            <li>Mission Planning</li>
+            <li>Debugging Flight</li>
           </ul>
-          <p class="ds-outcome"><strong>Outcome:</strong> students can create a small autonomous drone project.</p>
         </div>
-      </div>
+      </article>
+
+      <article class="ds-course ds-course--3">
+        <div class="ds-course__media">
+          <img src="../assets/images/industries-mapping.png" alt="Autonomous drone flying a mapped mission" loading="lazy">
+        </div>
+        <div class="ds-course__body">
+          <div class="ds-course__top">
+            <span class="ds-course__num">3</span>
+            <span class="ds-course__tag ds-course__tag--advanced">Advanced</span>
+          </div>
+          <h3 class="ds-course__title">Autonomous<br>Drone Projects</h3>
+          <p class="ds-course__desc">Build real autonomy. Camera streams, computer vision, and a final project that flies itself.</p>
+          <ul class="ds-course__skills">
+            <li>Computer Vision</li>
+            <li>Object Tracking</li>
+            <li>Swarm Concepts</li>
+            <li>Final Project</li>
+          </ul>
+        </div>
+      </article>
     </div>
   </div>
 </section>

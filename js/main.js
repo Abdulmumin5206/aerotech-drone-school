@@ -705,6 +705,106 @@
     steps.forEach((step) => observer.observe(step));
   };
 
+  const initLevelCarousel = () => {
+    const carousel = document.querySelector('[data-carousel]');
+    if (!carousel) return;
+    const track = carousel.querySelector('.ds-carousel__track');
+    const slides = Array.from(track.querySelectorAll('.ds-slide'));
+    if (!slides.length) return;
+    const prevBtn = carousel.querySelector('[data-dir="prev"]');
+    const nextBtn = carousel.querySelector('[data-dir="next"]');
+    const counter = carousel.querySelector('[data-current]');
+    const videos = slides.map((s) => s.querySelector('video'));
+
+    const slideStep = () => slides[0].offsetWidth + parseInt(getComputedStyle(track).columnGap || 20, 10);
+
+    const currentIndex = () => Math.round(track.scrollLeft / slideStep());
+
+    const ensureSrc = (v) => {
+      if (!v) return;
+      const src = v.getAttribute('data-src');
+      if (src && !v.src) {
+        v.src = src;
+        v.load();
+      }
+    };
+
+    const update = () => {
+      const idx = Math.max(0, Math.min(slides.length - 1, currentIndex()));
+      if (counter) counter.textContent = String(idx + 1);
+      if (prevBtn) prevBtn.disabled = idx === 0;
+      if (nextBtn) nextBtn.disabled = idx === slides.length - 1;
+      const active = videos[idx];
+      ensureSrc(active);
+      videos.forEach((v, i) => {
+        if (!v) return;
+        if (i === idx) {
+          const p = v.play();
+          if (p && typeof p.catch === 'function') p.catch(() => {});
+        } else {
+          v.pause();
+        }
+      });
+    };
+
+    const goTo = (idx) => {
+      const clamped = Math.max(0, Math.min(slides.length - 1, idx));
+      track.scrollTo({ left: clamped * slideStep(), behavior: 'smooth' });
+    };
+
+    if (prevBtn) prevBtn.addEventListener('click', () => goTo(currentIndex() - 1));
+    if (nextBtn) nextBtn.addEventListener('click', () => goTo(currentIndex() + 1));
+
+    let raf = 0;
+    let scrollTimer = 0;
+    let isScrolling = false;
+    track.addEventListener('scroll', () => {
+      if (!isScrolling) {
+        isScrolling = true;
+        videos.forEach((v) => v && !v.paused && v.pause());
+      }
+      if (raf) cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => {
+        const idx = Math.max(0, Math.min(slides.length - 1, currentIndex()));
+        if (counter) counter.textContent = String(idx + 1);
+        if (prevBtn) prevBtn.disabled = idx === 0;
+        if (nextBtn) nextBtn.disabled = idx === slides.length - 1;
+      });
+      clearTimeout(scrollTimer);
+      scrollTimer = setTimeout(() => {
+        isScrolling = false;
+        update();
+      }, 140);
+    });
+    window.addEventListener('resize', update);
+
+    // Drag-to-scroll on pointer devices
+    let isDown = false;
+    let startX = 0;
+    let startScroll = 0;
+    track.addEventListener('pointerdown', (e) => {
+      if (e.pointerType === 'touch') return;
+      isDown = true;
+      startX = e.clientX;
+      startScroll = track.scrollLeft;
+      track.setPointerCapture(e.pointerId);
+    });
+    track.addEventListener('pointermove', (e) => {
+      if (!isDown) return;
+      track.scrollLeft = startScroll - (e.clientX - startX);
+    });
+    const endDrag = (e) => {
+      if (!isDown) return;
+      isDown = false;
+      try { track.releasePointerCapture(e.pointerId); } catch (_) {}
+      goTo(currentIndex());
+    };
+    track.addEventListener('pointerup', endDrag);
+    track.addEventListener('pointercancel', endDrag);
+
+    update();
+  };
+
   document.addEventListener('DOMContentLoaded', () => {
     initAccordions();
     initScrollReveal();
@@ -716,5 +816,6 @@
     initLeadCTA();
     initOfferModal();
     initJourneyScroll();
+    initLevelCarousel();
   });
 })();
