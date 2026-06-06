@@ -8,16 +8,17 @@ All sections are in `index.html`. Styles in `css/sections.css`. Single-page site
 |---|---|---|---|
 | 0 | — | `.nav` | Fixed top navigation bar |
 | 1 | — | `.hero` | Full-bleed video hero |
-| 2 | `#statement` | `.statement` | Value proposition statement |
-| 3 | `#advantage` | `.advantage` | Why Aerotech (accordion) |
-| 4 | `#programs` | `.programs` | 4 course tracks with side-nav |
-| 5 | `#pillars` | `.pillars` | Learn / Build / Fly cards |
-| 6 | `#audience` | `.audience` | Who We Teach (accordion) |
-| 7 | `#numbers` | `.numbers` | Stats (4 large display numbers) |
-| 8 | `#demo` | `.demo` | Visit / location section |
-| 9 | `#teaser` | `.teaser` | Short centered statement |
-| 10 | `#industries` | `.industries` | 3-col image grid (Defense, Mapping, Inspection) |
-| 11 | — | `.footer` | Footer (inverted color scheme) |
+| 2 | — | `.statement` | Value proposition statement |
+| 3 | — | `.ds-teaser` | Drone School hub — 3 cards → `/drone-school/` |
+| 4 | — | `.ds-teaser` | Drone Services hub — 3 cards → `/services/` |
+| 5 | `#advantage` | `.advantage` | Why Aerotech (accordion) |
+| 6 | `#journey` | `.journey` | Sticky-scroll video + text steps |
+| 7 | `#audience` | `.audience` | Who We Teach (accordion) |
+| 8 | — | `.numbers` | Stats (4 large display numbers) |
+| 9 | `#demo` | `.demo` | Visit / location section |
+| 10 | — | `.teaser` | Short centered statement |
+| 11 | `#industries` | `.industries` | 2-col image grid (Mapping, Inspection) |
+| 12 | — | `.footer` | Footer (inverted color scheme) |
 
 ---
 
@@ -34,24 +35,19 @@ All sections are in `index.html`. Styles in `css/sections.css`. Single-page site
 - Padding: 140px top/bottom (desktop)
 - Has `.reveal` class
 
+## Drone School Teaser (`.ds-teaser`)
+- 3 cards in a row + headline + body + bottom CTA → `/drone-school/`
+- First of two sibling hub sections (school + services)
+- Has `.reveal` class
+
+## Drone Services Teaser (`.ds-teaser`)
+- Identical structure to Drone School teaser, content swap
+- 3 cards: Aerial Mapping / Infrastructure Inspection / Custom Builds → `/services/`
+- Has `.reveal` class
+
 ## Advantage (`.advantage`)
 - 2-column grid: SVG illustration (drone quadcopter schematic) | 4-item accordion
 - Accordion items: school's 4 key differentiators
-- Has `.reveal` class
-
-## Programs (`.programs`)
-- 4 full-width rows, each is a course track:
-  1. Fundamentals
-  2. Intermediate
-  3. Advanced
-  4. Professional
-- Each row: left sticky side-nav rail + content area (alternating copy/visual layout)
-- JS `initProgramsSideNav()` highlights active row on scroll
-- This section is the content-heaviest; scroll takes time to traverse
-
-## Pillars (`.pillars`)
-- 3-column card grid: "Learn" / "Build" / "Fly"
-- Each card: icon (inline SVG) + headline + short body
 - Has `.reveal` class
 
 ## Audience (`.audience`)
@@ -78,17 +74,17 @@ All sections are in `index.html`. Styles in `css/sections.css`. Single-page site
 - Transition section between Demo and Industries
 
 ## Industries (`.industries`)
-- 100vh, 3-column CSS grid
+- 100vh, 2-column CSS grid
 - Each cell is a full-height image (background-image)
 - Hover: dark overlay fades in + text appears (pure CSS, no JS)
-- Columns: Defense / Mapping / Inspection
+- Columns: Mapping / Inspection
 - No `.reveal` — full-viewport, always visible
 
 ## Footer (`.footer`)
 - **Inverted color scheme:** white background, dark text
 - 5-column link grid + brand section
 - Brand section: logo + tagline + social icons (inline SVG)
-- Link groups: Programs / Company / Resources / Legal / Contact
+- Link groups: Drone School / Who We Teach / Industries / Services / Connect
 - Bottom bar: copyright + language switcher
 
 ---

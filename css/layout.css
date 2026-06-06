@@ -59,7 +59,7 @@ section {
 .nav .nav-links a,
 .nav .icon-btn,
 .nav .lang-switch,
-.nav .lang-switch a,
+.nav .lang-switch__current,
 .nav .logo-mark {
   transition:
     color 0.3s ease,
@@ -72,7 +72,7 @@ section {
 .nav--hidden .nav-links a,
 .nav--hidden .icon-btn,
 .nav--hidden .lang-switch,
-.nav--hidden .lang-switch a,
+.nav--hidden .lang-switch__current,
 .nav--hidden .logo-mark {
   transition-delay: 0.4s;
 }
@@ -99,15 +99,6 @@ section {
 
 .nav--scrolled .lang-switch {
   border-color: rgba(0, 0, 0, 0.12);
-}
-
-.nav--scrolled .lang-switch a {
-  color: rgba(0, 0, 0, 0.45);
-}
-
-.nav--scrolled .lang-switch a.active {
-  color: #0a0a0a;
-  background: rgba(0, 0, 0, 0.05);
 }
 
 .nav-inner {
@@ -285,15 +276,6 @@ section {
   border-color: rgba(0, 0, 0, 0.12);
 }
 
-.nav:is(:hover, :has(.has-dropdown.is-open)) .lang-switch a {
-  color: rgba(0, 0, 0, 0.45);
-}
-
-.nav:is(:hover, :has(.has-dropdown.is-open)) .lang-switch a.active {
-  color: #0a0a0a;
-  background: rgba(0, 0, 0, 0.05);
-}
-
 /* The hovered link itself gets the brand accent against the white bar */
 .nav:is(:hover, :has(.has-dropdown.is-open)) .nav-links a:hover {
   color: var(--accent);
@@ -305,38 +287,135 @@ section {
   gap: 16px;
 }
 
-/* Language switcher */
+/* Language switcher — compact dropdown */
 .lang-switch {
+  position: relative;
   display: inline-flex;
   align-items: center;
-  gap: 2px;
-  padding: 3px;
+}
+
+.lang-switch__current {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px;
+  background: transparent;
   border: 1px solid var(--line);
   border-radius: 4px;
-}
-
-.lang-switch a {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 30px;
-  padding: 4px 8px;
+  font-family: inherit;
   font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.06em;
+  font-weight: 600;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--text-faint);
+  color: var(--text);
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.lang-switch__current:hover {
+  border-color: var(--accent);
+  color: var(--accent-2);
+}
+
+.lang-switch__flag {
+  display: inline-flex;
+  width: 20px;
+  height: 14px;
   border-radius: 2px;
-  transition: color 0.2s, background 0.2s;
+  overflow: hidden;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.1);
 }
 
-.lang-switch a.active {
-  color: var(--text);
-  background: rgba(255, 255, 255, 0.08);
+.lang-switch__flag svg {
+  display: block;
+  width: 100%;
+  height: 100%;
 }
 
-.lang-switch a:hover {
+.lang-switch__caret {
+  font-size: 9px;
+  opacity: 0.7;
+  transition: transform 0.2s var(--ease);
+}
+
+.lang-switch__current[aria-expanded="true"] .lang-switch__caret {
+  transform: rotate(180deg);
+}
+
+.lang-switch__menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  min-width: 160px;
+  margin: 0;
+  padding: 6px;
+  list-style: none;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
+  z-index: 60;
+}
+
+.lang-switch__menu[hidden] {
+  display: none;
+}
+
+.lang-switch__menu li {
+  margin: 0;
+}
+
+.lang-switch__menu a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+  font-size: 13px;
+  font-weight: 500;
   color: var(--text);
+  border-radius: 3px;
+  transition: background 0.15s, color 0.15s;
+}
+
+.lang-switch__menu a:hover {
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--accent-2);
+}
+
+.lang-switch__menu a.is-active {
+  color: var(--accent);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+/* Scrolled (white nav) variant for dropdown menu */
+.nav--scrolled .lang-switch__menu,
+.nav:is(:hover, :has(.has-dropdown.is-open)) .lang-switch__menu {
+  background: #fff;
+  border-color: rgba(0, 0, 0, 0.1);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
+}
+
+.nav--scrolled .lang-switch__menu a,
+.nav:is(:hover, :has(.has-dropdown.is-open)) .lang-switch__menu a {
+  color: #0a0a0a;
+}
+
+.nav--scrolled .lang-switch__menu a:hover,
+.nav:is(:hover, :has(.has-dropdown.is-open)) .lang-switch__menu a:hover {
+  background: rgba(0, 0, 0, 0.05);
+  color: var(--accent);
+}
+
+.nav--scrolled .lang-switch__menu a.is-active,
+.nav:is(:hover, :has(.has-dropdown.is-open)) .lang-switch__menu a.is-active {
+  color: var(--accent);
+  background: rgba(0, 0, 0, 0.04);
+}
+
+.nav--scrolled .lang-switch__current,
+.nav:is(:hover, :has(.has-dropdown.is-open)) .lang-switch__current {
+  color: #0a0a0a;
+  border-color: rgba(0, 0, 0, 0.14);
 }
 
 .icon-btn {
@@ -362,10 +441,10 @@ section {
   .nav-inner {
     height: 64px;
   }
-  .lang-switch a {
-    min-width: 26px;
-    padding: 3px 6px;
+  .lang-switch__current {
+    padding: 5px 8px;
     font-size: 10px;
+    gap: 6px;
   }
 }
 

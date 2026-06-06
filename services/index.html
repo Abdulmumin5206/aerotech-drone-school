@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Aerotech Drone Services — aerial mapping, infrastructure inspection, and custom drone engineering for industries across Uzbekistan." />
+  <title>Drone Services — Aerotech</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="../css/main.css">
+</head>
+<body>
+
+<!-- ============================================================
+     NAV
+     ============================================================ -->
+<nav class="nav">
+  <div class="container nav-inner">
+    <a href="../" class="logo">
+      <span class="logo-mark">
+        <svg viewBox="0 0 32 32" fill="none">
+          <circle cx="16" cy="16" r="14.5" stroke="white" stroke-width="1.5"/>
+          <path d="M16 4 L16 28 M4 16 L28 16" stroke="white" stroke-width="1"/>
+          <path d="M9 9 L23 23 M23 9 L9 23" stroke="white" stroke-width="1" opacity="0.5"/>
+          <circle cx="16" cy="16" r="3" fill="white"/>
+        </svg>
+      </span>
+      Aerotech
+    </a>
+    <div class="nav-links">
+      <div class="nav-item has-dropdown">
+        <a href="../drone-school/" class="nav-trigger">Drone School <span class="caret">▾</span></a>
+        <div class="nav-dropdown" role="menu" aria-label="Drone School">
+          <span class="nav-dropdown__label" aria-hidden="true">Drone School</span>
+          <a href="../drone-school/" role="menuitem">Overview</a>
+          <a href="../drone-school/#drone-programming" role="menuitem">Drone Programming</a>
+          <a href="../drone-school/#drone-building" role="menuitem">Drone Building</a>
+          <a href="../drone-school/#pilot-training" role="menuitem">Pilot Training</a>
+          <a href="../drone-school/#education-partners" role="menuitem">For Schools &amp; Universities</a>
+        </div>
+      </div>
+      <div class="nav-item has-dropdown">
+        <a href="#drone-services" class="nav-trigger" aria-current="page">Drone Services <span class="caret">▾</span></a>
+        <div class="nav-dropdown" role="menu" aria-label="Drone Services">
+          <span class="nav-dropdown__label" aria-hidden="true">Drone Services</span>
+          <a href="#drone-services" role="menuitem">Overview</a>
+          <a href="#aerial-mapping" role="menuitem">Aerial Mapping &amp; Survey</a>
+          <a href="#infrastructure-inspection" role="menuitem">Infrastructure Inspection</a>
+          <a href="#custom-builds" role="menuitem">Custom Drone Builds</a>
+        </div>
+      </div>
+      <a href="../#audience">Who We Teach <span class="caret">▾</span></a>
+      <a href="../#advantage">Why Aerotech <span class="caret">▾</span></a>
+      <a href="#">Schedule</a>
+      <a href="../#demo">Visit</a>
+    </div>
+    <div class="nav-right">
+      <div class="lang-switch" role="group" aria-label="Language">
+        <a href="#" class="active">EN</a>
+        <a href="#">UZ</a>
+        <a href="#">RU</a>
+      </div>
+      <a href="#" class="icon-btn" aria-label="Search">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      </a>
+      <a href="#" class="icon-btn icon-btn--menu" aria-label="Menu">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 7h18M3 12h18M3 17h18"/></svg>
+      </a>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile menu drawer (shown < 920px) -->
+<div class="mobile-menu" id="mobileMenu">
+  <div class="mobile-menu-inner">
+    <div class="mobile-menu-group">
+      <button type="button" class="mobile-menu-toggle" aria-expanded="false" aria-controls="mobileDsSubmenu">
+        Drone School
+        <span class="mobile-menu-caret" aria-hidden="true"></span>
+      </button>
+      <div class="mobile-submenu" id="mobileDsSubmenu" hidden>
+        <a href="../drone-school/">Overview</a>
+        <a href="../drone-school/#drone-programming">Drone Programming</a>
+        <a href="../drone-school/#drone-building">Drone Building</a>
+        <a href="../drone-school/#pilot-training">Pilot Training</a>
+        <a href="../drone-school/#education-partners">For Schools &amp; Universities</a>
+      </div>
+    </div>
+    <div class="mobile-menu-group">
+      <button type="button" class="mobile-menu-toggle" aria-expanded="true" aria-controls="mobileSvSubmenu">
+        Drone Services
+        <span class="mobile-menu-caret" aria-hidden="true"></span>
+      </button>
+      <div class="mobile-submenu" id="mobileSvSubmenu">
+        <a href="#drone-services">Overview</a>
+        <a href="#aerial-mapping">Aerial Mapping &amp; Survey</a>
+        <a href="#infrastructure-inspection">Infrastructure Inspection</a>
+        <a href="#custom-builds">Custom Drone Builds</a>
+      </div>
+    </div>
+    <a href="../#audience">Who We Teach</a>
+    <a href="../#industries">Industries</a>
+    <a href="../#advantage">Why Aerotech</a>
+    <a href="#">Schedule</a>
+    <a href="../#demo">Visit</a>
+  </div>
+</div>
+
+<!-- ============================================================
+     DRONE SERVICES — page content
+     ============================================================ -->
+<section class="ds-hero ds-hero--page ds-hero--video" id="drone-services">
+  <video class="ds-hero__bg" autoplay loop muted playsinline>
+    <source src="../assets/videos/DJI Tello EDU_1080p.mp4" type="video/mp4">
+  </video>
+  <div class="ds-hero__overlay" aria-hidden="true"></div>
+  <div class="container ds-hero__content">
+    <h1 class="ds-hero__title">Drones in the field —<br>built for industry.</h1>
+    <p class="ds-hero__sub">Aerotech operates aerial mapping, infrastructure inspection, and custom drone engineering across Uzbekistan — flown by our crew, delivered as files your team can use.</p>
+    <div class="ds-hero__ctas">
+      <a href="#sv-services" class="btn-bracket"><span>Explore Services</span></a>
+      <a href="#sv-contact" class="btn-link">Discuss a Project
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="ds-programs reveal" id="sv-services">
+  <div class="container">
+    <h2 class="ds-programs__title">Three ways drones<br>do real work.</h2>
+    <p class="ds-programs__sub">Pick the engagement that matches your job — a one-off survey, a recurring inspection programme, or a custom drone built around your mission.</p>
+    <div class="ds-programs__grid">
+      <article class="ds-program">
+        <div class="ds-program__visual">
+          <img src="../assets/images/industries-mapping.png" alt="A surveying drone flying low over farmland at sunrise" loading="lazy">
+        </div>
+        <div class="ds-program__head">
+          <span class="ds-program__num">01</span>
+          <h3>Aerial Mapping &amp; Survey</h3>
+        </div>
+        <p>High-resolution orthomosaics, contour maps, DEMs, and 3D models for agriculture, construction, and land planning.</p>
+        <ul class="ds-program__tags">
+          <li>Photogrammetry</li>
+          <li>RTK GCPs</li>
+          <li>Orthomosaics</li>
+          <li>3D models</li>
+        </ul>
+        <a href="#aerial-mapping" class="btn-link">View Service
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </article>
+      <article class="ds-program">
+        <div class="ds-program__visual">
+          <img src="../assets/images/industries-inspection.png" alt="A drone inspecting high-voltage power transmission lines at sunset" loading="lazy">
+        </div>
+        <div class="ds-program__head">
+          <span class="ds-program__num">02</span>
+          <h3>Infrastructure Inspection</h3>
+        </div>
+        <p>Routine drone inspections of power lines, pipelines, telecom towers, and industrial assets — RGB, zoom, and thermal in a single sortie.</p>
+        <ul class="ds-program__tags">
+          <li>Power lines</li>
+          <li>Pipelines</li>
+          <li>Thermal</li>
+          <li>Geo-reports</li>
+        </ul>
+        <a href="#infrastructure-inspection" class="btn-link">View Service
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </article>
+      <article class="ds-program">
+        <div class="ds-program__visual">
+          <img src="../assets/images/FabLab%20Drone.png" alt="A custom-engineered drone in the FabLab ready for field testing" loading="lazy">
+        </div>
+        <div class="ds-program__head">
+          <span class="ds-program__num">03</span>
+          <h3>Custom Drone Builds</h3>
+        </div>
+        <p>Bespoke airframes, payload integrations, and autonomy stacks — engineered around your mission profile when off-the-shelf doesn't fit.</p>
+        <ul class="ds-program__tags">
+          <li>Custom airframes</li>
+          <li>Payload integration</li>
+          <li>FabLab</li>
+          <li>Field testing</li>
+        </ul>
+        <a href="#custom-builds" class="btn-link">View Service
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="ds-deepdive reveal" id="aerial-mapping">
+  <div class="container">
+    <div class="ds-feature">
+      <div class="ds-feature__visual ds-feature__visual--photo">
+        <img src="../assets/images/industries-mapping-green.png" alt="Aerial mapping drone surveying agricultural fields" loading="lazy">
+        <div class="ds-feature__visual-meta" aria-hidden="true">
+          <span class="ds-hero__meta-dot"></span>
+          <span>Aerial mapping · Field operations</span>
+        </div>
+      </div>
+      <div class="ds-feature__content">
+        <span class="eyebrow">Service 01</span>
+        <h2>Aerial Mapping<br>&amp; Survey.</h2>
+        <p class="ds-deepdive__lede">Engineering-grade aerial data, captured by drone — delivered as files your team can drop straight into GIS, CAD, or BIM.</p>
+        <p class="ds-deepdive__body">Drone-based surveys for agriculture, construction, mining, urban planning, and land management. We plan the flight, set ground control, capture the imagery, and deliver clean orthomosaics, terrain models, and 3D meshes — referenced and ready to use.</p>
+      </div>
+    </div>
+
+    <div class="ds-modules">
+      <header class="ds-modules__head">
+        <span class="ds-modules__label">How it works</span>
+        <span class="ds-modules__meta">3 stages · From flight plan to deliverable</span>
+      </header>
+      <div class="ds-modules__grid">
+        <article class="ds-module">
+          <span class="ds-module__step">Stage 01</span>
+          <h3 class="ds-module__title">Plan &amp; Capture</h3>
+          <p class="ds-module__desc">Site walk, flight planning, ground control, and multi-flight capture at the resolution your job needs.</p>
+          <ul class="ds-module__topics">
+            <li>Site &amp; airspace planning</li>
+            <li>RTK ground control points</li>
+            <li>Multi-flight capture</li>
+            <li>Quality checks on-site</li>
+          </ul>
+        </article>
+        <article class="ds-module">
+          <span class="ds-module__step">Stage 02</span>
+          <h3 class="ds-module__title">Process</h3>
+          <p class="ds-module__desc">Photogrammetric processing with geo-referencing and accuracy validated against your control points.</p>
+          <ul class="ds-module__topics">
+            <li>Photogrammetric pipeline</li>
+            <li>Geo-referencing</li>
+            <li>Accuracy validation</li>
+            <li>Cloud / dense point cloud</li>
+          </ul>
+        </article>
+        <article class="ds-module">
+          <span class="ds-module__step">Stage 03</span>
+          <h3 class="ds-module__title">Deliver</h3>
+          <p class="ds-module__desc">Outputs delivered in the formats your engineers and analysts already work in.</p>
+          <ul class="ds-module__topics">
+            <li>Orthomosaics &amp; DEMs</li>
+            <li>Contour maps</li>
+            <li>3D mesh &amp; textured models</li>
+            <li>GIS-ready exports</li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="ds-deepdive reveal" id="infrastructure-inspection">
+  <div class="container">
+    <div class="ds-feature ds-feature--flip">
+      <div class="ds-feature__visual ds-feature__visual--photo">
+        <img src="../assets/images/industries-inspection.png" alt="Drone inspecting a high-voltage power line tower" loading="lazy">
+        <div class="ds-feature__visual-meta" aria-hidden="true">
+          <span class="ds-hero__meta-dot"></span>
+          <span>Inspection · Power · Pipelines · Towers</span>
+        </div>
+      </div>
+      <div class="ds-feature__content">
+        <span class="eyebrow">Service 02</span>
+        <h2>Infrastructure<br>Inspection.</h2>
+        <p class="ds-deepdive__lede">Power lines, pipelines, towers, and remote assets — inspected from the air, in less time and with better data than ground crews.</p>
+        <p class="ds-deepdive__body">Routine drone inspections for high-voltage transmission, oil &amp; gas pipelines, telecom towers, and industrial facilities. Safer than rope teams, faster than line crews, and capable of capturing visual, zoom, and thermal data in a single sortie — delivered as a geo-referenced inspection report your asset managers can act on.</p>
+      </div>
+    </div>
+
+    <div class="ds-modules">
+      <header class="ds-modules__head">
+        <span class="ds-modules__label">How it works</span>
+        <span class="ds-modules__meta">3 stages · Survey to actionable report</span>
+      </header>
+      <div class="ds-modules__grid">
+        <article class="ds-module">
+          <span class="ds-module__step">Stage 01</span>
+          <h3 class="ds-module__title">Asset Survey</h3>
+          <p class="ds-module__desc">Pre-flight planning, asset cataloguing, and mission corridor mapping over your network.</p>
+          <ul class="ds-module__topics">
+            <li>Asset cataloguing</li>
+            <li>Corridor &amp; route mapping</li>
+            <li>Risk &amp; airspace planning</li>
+            <li>Operator briefing</li>
+          </ul>
+        </article>
+        <article class="ds-module">
+          <span class="ds-module__step">Stage 02</span>
+          <h3 class="ds-module__title">Sensor Suite</h3>
+          <p class="ds-module__desc">The right payload for the asset — RGB, zoom, or thermal, captured in a single flight.</p>
+          <ul class="ds-module__topics">
+            <li>High-resolution RGB</li>
+            <li>Optical zoom</li>
+            <li>Thermal imaging</li>
+            <li>Geo-tagged capture</li>
+          </ul>
+        </article>
+        <article class="ds-module">
+          <span class="ds-module__step">Stage 03</span>
+          <h3 class="ds-module__title">Report</h3>
+          <p class="ds-module__desc">Anomalies are tagged, ranked by severity, and pinned to coordinates your team can find on the ground.</p>
+          <ul class="ds-module__topics">
+            <li>Anomaly tagging</li>
+            <li>Severity ranking</li>
+            <li>Geo-referenced report</li>
+            <li>Re-inspection scheduling</li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="ds-deepdive reveal" id="custom-builds">
+  <div class="container">
+    <div class="ds-feature">
+      <div class="ds-feature__visual ds-feature__visual--photo">
+        <img src="../assets/images/FabLab%20Drone.png" alt="A custom-engineered drone being assembled in the FabLab" loading="lazy">
+        <div class="ds-feature__visual-meta" aria-hidden="true">
+          <span class="ds-hero__meta-dot"></span>
+          <span>FabLab · Drone engineering</span>
+        </div>
+      </div>
+      <div class="ds-feature__content">
+        <span class="eyebrow">Service 03</span>
+        <h2>Custom Drone<br>Builds.</h2>
+        <p class="ds-deepdive__lede">Bespoke airframes, payload integrations, and autonomy stacks — engineered around your mission profile.</p>
+        <p class="ds-deepdive__body">When off-the-shelf drones don't fit the job, we engineer them. Our FabLab and engineering team designs, fabricates, and field-tests drones built around your operational requirements — whether that's a specialised payload, a longer-endurance airframe, or a fully custom autonomy stack.</p>
+      </div>
+    </div>
+
+    <div class="ds-modules">
+      <header class="ds-modules__head">
+        <span class="ds-modules__label">How it works</span>
+        <span class="ds-modules__meta">3 stages · Spec to handover</span>
+      </header>
+      <div class="ds-modules__grid">
+        <article class="ds-module">
+          <span class="ds-module__step">Stage 01</span>
+          <h3 class="ds-module__title">Spec &amp; Design</h3>
+          <p class="ds-module__desc">Requirements, mission profile, and airframe sizing — locked before a single part is cut.</p>
+          <ul class="ds-module__topics">
+            <li>Requirements gathering</li>
+            <li>Airframe sizing</li>
+            <li>Payload modelling</li>
+            <li>CAD &amp; review</li>
+          </ul>
+        </article>
+        <article class="ds-module">
+          <span class="ds-module__step">Stage 02</span>
+          <h3 class="ds-module__title">Fabricate</h3>
+          <p class="ds-module__desc">Built in-house — printing, machining, electronics integration, and firmware tuned for the mission.</p>
+          <ul class="ds-module__topics">
+            <li>3D printing &amp; machining</li>
+            <li>Electronics integration</li>
+            <li>Firmware &amp; autonomy</li>
+            <li>Bench testing</li>
+          </ul>
+        </article>
+        <article class="ds-module">
+          <span class="ds-module__step">Stage 03</span>
+          <h3 class="ds-module__title">Test &amp; Deliver</h3>
+          <p class="ds-module__desc">Calibration, flight testing, operator handover, and ongoing support after the drone enters service.</p>
+          <ul class="ds-module__topics">
+            <li>Calibration</li>
+            <li>Flight test programme</li>
+            <li>Operator handover</li>
+            <li>Service &amp; support</li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="ds-final-cta reveal" id="sv-contact">
+  <div class="container">
+    <div class="ds-final-cta__head">
+      <span class="eyebrow">Discuss a Project</span>
+      <h2>Have a job<br>that needs a drone?</h2>
+      <p>Tell us about the site, the asset, or the airframe you have in mind — we'll come back with a plan.</p>
+    </div>
+
+    <ul class="ds-contact-rail">
+      <li>
+        <a href="mailto:info@cfyi.uz" class="ds-contact-rail__item">
+          <span class="ds-contact-rail__label">Email</span>
+          <span class="ds-contact-rail__value">info@cfyi.uz</span>
+          <span class="ds-contact-rail__arrow" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M7 17L17 7M9 7h8v8"/></svg>
+          </span>
+        </a>
+      </li>
+      <li>
+        <a href="tel:+998770883977" class="ds-contact-rail__item">
+          <span class="ds-contact-rail__label">Phone</span>
+          <span class="ds-contact-rail__value">+998 (77) 088 39 77</span>
+          <span class="ds-contact-rail__arrow" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M7 17L17 7M9 7h8v8"/></svg>
+          </span>
+        </a>
+      </li>
+      <li>
+        <a href="../#demo" class="ds-contact-rail__item">
+          <span class="ds-contact-rail__label">Visit</span>
+          <span class="ds-contact-rail__value">Olmachi 17, Mirzo-Ulugbek, Tashkent</span>
+          <span class="ds-contact-rail__arrow" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M7 17L17 7M9 7h8v8"/></svg>
+          </span>
+        </a>
+      </li>
+    </ul>
+
+    <div class="ds-final-cta__foot">
+      <a href="#sv-services" class="btn-link">Back to Services
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     FOOTER
+     ============================================================ -->
+<footer class="footer">
+  <div class="footer-brand-row">
+    <div class="container footer-brand-inner">
+      <a href="../" class="logo footer-logo-big">
+        <span class="logo-mark">
+          <svg viewBox="0 0 32 32" fill="none">
+            <circle cx="16" cy="16" r="14.5" stroke="white" stroke-width="1.5"/>
+            <path d="M16 4 L16 28 M4 16 L28 16" stroke="white" stroke-width="1"/>
+            <path d="M9 9 L23 23 M23 9 L9 23" stroke="white" stroke-width="1" opacity="0.5"/>
+            <circle cx="16" cy="16" r="3" fill="white"/>
+          </svg>
+        </span>
+        Aerotech
+      </a>
+      <a href="#sv-contact" class="btn-bracket"><span>Contact Us</span></a>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="footer-grid">
+
+      <div class="footer-col">
+        <h4>Drone School</h4>
+        <a href="../drone-school/" class="footer-link-lg">Overview</a>
+        <ul>
+          <li><a href="../drone-school/#drone-programming">Drone Programming</a></li>
+          <li><a href="../drone-school/#drone-building">Drone Building</a></li>
+          <li><a href="../drone-school/#pilot-training">Pilot Training</a></li>
+          <li><a href="../drone-school/#education-partners">For Schools &amp; Universities</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Who We Teach</h4>
+        <a href="../#audience" class="footer-link-lg">Kids &amp; Teens</a>
+        <ul>
+          <li><a href="../#audience">University Students</a></li>
+          <li><a href="../#audience">Professionals</a></li>
+          <li><a href="../#audience">Schools &amp; Institutions</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Industries</h4>
+        <a href="../#industries" class="footer-link-lg">Aerial Mapping &amp; Survey</a>
+        <ul>
+          <li><a href="../#industries">Infrastructure Inspection</a></li>
+          <li><a href="../#industries">Custom Builds &amp; R&amp;D</a></li>
+          <li><a href="../#industries">Operations</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Services</h4>
+        <a href="#drone-services" class="footer-link-lg">Overview</a>
+        <ul>
+          <li><a href="#aerial-mapping">Aerial Mapping</a></li>
+          <li><a href="#infrastructure-inspection">Inspection</a></li>
+          <li><a href="#custom-builds">Custom Builds</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Connect</h4>
+        <a href="mailto:info@cfyi.uz" class="footer-link-lg">info@cfyi.uz</a>
+        <ul>
+          <li><a href="tel:+998770883977">+998 (77) 088 39 77</a></li>
+          <li><a href="tel:+998770884977">+998 (77) 088 49 77</a></li>
+          <li><a href="../#demo">Olmachi Street 17</a></li>
+          <li><a href="../#demo">Mirzo-Ulugbek, Tashkent</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <div class="legal">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Use</a>
+        <a href="#">Sitemap</a>
+      </div>
+      <div class="copy">© 2026 Aerotech Drone School. All rights reserved.</div>
+      <div class="social">
+        <a href="https://www.youtube.com/@CenterforYouthInitiatives" target="_blank" rel="noopener" aria-label="YouTube">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31.4 31.4 0 0 0 0 12a31.4 31.4 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c2 .6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31.4 31.4 0 0 0 24 12a31.4 31.4 0 0 0-.5-5.8zM9.6 15.6V8.4l6.2 3.6-6.2 3.6z"/></svg>
+        </a>
+        <a href="https://instagram.com/centerforyouthinitiatives" target="_blank" rel="noopener" aria-label="Instagram">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.6" fill="currentColor"/></svg>
+        </a>
+        <a href="https://www.facebook.com/centerforyouthinitiatives" target="_blank" rel="noopener" aria-label="Facebook">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0 0 22 12z"/></svg>
+        </a>
+        <a href="https://www.linkedin.com/company/center-for-youth-initiatives" target="_blank" rel="noopener" aria-label="LinkedIn">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 0H5C2.2 0 0 2.2 0 5v14c0 2.8 2.2 5 5 5h14c2.8 0 5-2.2 5-5V5c0-2.8-2.2-5-5-5zM7 19H4V8h3v11zM5.5 6.5c-1 0-1.7-.7-1.7-1.7s.7-1.7 1.7-1.7c1 0 1.7.7 1.7 1.7s-.7 1.7-1.7 1.7zM20 19h-3v-5.4c0-1.4-.5-2.3-1.7-2.3-.9 0-1.5.6-1.7 1.2-.1.2-.1.5-.1.8V19h-3V8h3v1.3c.4-.6 1.1-1.5 2.7-1.5 2 0 3.5 1.3 3.5 4.1V19z"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ============================================================
+     LEAD CAPTURE CTA — persistent right-edge drawer
+     ============================================================ -->
+<button class="cta-trigger" id="leadTrigger" type="button" aria-label="Open contact panel" aria-expanded="false" aria-controls="leadCTA">
+  <span class="cta-trigger__icon">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+      <path d="M21 11.5a8.4 8.4 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.4 8.4 0 0 1-3.8-.9L3 21l1.9-5.7a8.4 8.4 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.4 8.4 0 0 1 3.8-.9h.5a8.5 8.5 0 0 1 8 8z"/>
+    </svg>
+  </span>
+  <span class="cta-trigger__label">Contact</span>
+</button>
+
+<aside class="cta-popup" id="leadCTA" aria-hidden="true" role="dialog" aria-modal="false" aria-label="Talk to our team">
+  <div class="cta-popup__card">
+    <button class="cta-popup__close" type="button" aria-label="Close panel">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+        <path d="M6 6l12 12M18 6L6 18"/>
+      </svg>
+    </button>
+
+    <div class="cta-popup__scroll" id="leadScroll">
+      <div class="cta-popup__eyebrow">
+        <span class="cta-popup__mark">
+          <svg viewBox="0 0 32 32" fill="none">
+            <circle cx="16" cy="16" r="14.5" stroke="white" stroke-width="1.5"/>
+            <path d="M16 4 L16 28 M4 16 L28 16" stroke="white" stroke-width="1"/>
+            <path d="M9 9 L23 23 M23 9 L9 23" stroke="white" stroke-width="1" opacity="0.5"/>
+            <circle cx="16" cy="16" r="3" fill="white"/>
+          </svg>
+        </span>
+        Aerotech
+      </div>
+
+      <div class="cta-popup__panel cta-popup__panel--form">
+        <h3 class="cta-popup__title">Talk to our team.</h3>
+        <p class="cta-popup__sub">Leave your number or email and we'll reach out within one working day.</p>
+
+        <form class="cta-popup__form" id="leadForm" novalidate>
+          <label class="cta-popup__field">
+            <span class="cta-popup__vh" id="leadInputLabel">Phone or email</span>
+            <input
+              type="tel"
+              class="cta-popup__input"
+              id="leadInput"
+              name="contact"
+              placeholder="+998 __ ___ __ __"
+              aria-labelledby="leadInputLabel"
+              autocomplete="tel"
+              required
+            />
+          </label>
+
+          <div class="cta-popup__toggle" role="tablist" aria-label="Contact method">
+            <button type="button" class="cta-popup__toggle-btn is-active" data-mode="phone" role="tab" aria-selected="true">Phone</button>
+            <button type="button" class="cta-popup__toggle-btn" data-mode="email" role="tab" aria-selected="false">Email</button>
+          </div>
+
+          <div class="cta-popup__error" id="leadError" role="alert"></div>
+
+          <button type="submit" class="btn-bracket cta-popup__submit">
+            <span class="cta-popup__btn-label">Get a callback</span>
+          </button>
+
+          <p class="cta-popup__legal">By submitting you agree to be contacted by Aerotech.</p>
+        </form>
+      </div>
+
+      <div class="cta-popup__panel cta-popup__panel--success" aria-hidden="true">
+        <div class="cta-popup__check">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+            <circle cx="12" cy="12" r="10"/>
+            <path d="M8 12.5l3 3 5-6"/>
+          </svg>
+        </div>
+        <h3 class="cta-popup__title">We've got it.</h3>
+        <p class="cta-popup__sub">Talk soon.</p>
+      </div>
+
+      <div class="cta-popup__contact">
+        <div class="cta-popup__contact-head">Reach us directly</div>
+        <ul class="cta-popup__links">
+          <li>
+            <a href="tel:+998770883977" class="cta-popup__link">
+              <span class="cta-popup__link-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                </svg>
+              </span>
+              <span class="cta-popup__link-text">
+                <span class="cta-popup__link-label">Phone</span>
+                <span class="cta-popup__link-value">+998 (77) 088 39 77</span>
+              </span>
+              <span class="cta-popup__link-arrow" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 17 17 7M9 7h8v8"/></svg>
+              </span>
+            </a>
+          </li>
+          <li>
+            <a href="mailto:info@cfyi.uz" class="cta-popup__link">
+              <span class="cta-popup__link-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <rect x="2" y="4" width="20" height="16" rx="2"/>
+                  <path d="m22 7-10 5L2 7"/>
+                </svg>
+              </span>
+              <span class="cta-popup__link-text">
+                <span class="cta-popup__link-label">Email</span>
+                <span class="cta-popup__link-value">info@cfyi.uz</span>
+              </span>
+              <span class="cta-popup__link-arrow" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 17 17 7M9 7h8v8"/></svg>
+              </span>
+            </a>
+          </li>
+          <li>
+            <a href="https://www.facebook.com/centerforyouthinitiatives" target="_blank" rel="noopener" class="cta-popup__link">
+              <span class="cta-popup__link-icon">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0 0 22 12z"/>
+                </svg>
+              </span>
+              <span class="cta-popup__link-text">
+                <span class="cta-popup__link-label">Facebook</span>
+                <span class="cta-popup__link-value">@centerforyouthinitiatives</span>
+              </span>
+              <span class="cta-popup__link-arrow" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 17 17 7M9 7h8v8"/></svg>
+              </span>
+            </a>
+          </li>
+          <li>
+            <a href="https://instagram.com/centerforyouthinitiatives" target="_blank" rel="noopener" class="cta-popup__link">
+              <span class="cta-popup__link-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <rect x="3" y="3" width="18" height="18" rx="5"/>
+                  <circle cx="12" cy="12" r="4"/>
+                  <circle cx="17.5" cy="6.5" r="0.6" fill="currentColor"/>
+                </svg>
+              </span>
+              <span class="cta-popup__link-text">
+                <span class="cta-popup__link-label">Instagram</span>
+                <span class="cta-popup__link-value">@centerforyouthinitiatives</span>
+              </span>
+              <span class="cta-popup__link-arrow" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 17 17 7M9 7h8v8"/></svg>
+              </span>
+            </a>
+          </li>
+          <li>
+            <a href="../#demo" class="cta-popup__link">
+              <span class="cta-popup__link-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                  <circle cx="12" cy="10" r="3"/>
+                </svg>
+              </span>
+              <span class="cta-popup__link-text">
+                <span class="cta-popup__link-label">Visit</span>
+                <span class="cta-popup__link-value">Olmachi 17 · Mirzo-Ulugbek</span>
+              </span>
+              <span class="cta-popup__link-arrow" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 17 17 7M9 7h8v8"/></svg>
+              </span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</aside>
+
+<script src="../js/main.js"></script>
+</body>
+</html>

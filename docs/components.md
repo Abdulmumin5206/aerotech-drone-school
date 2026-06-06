@@ -63,7 +63,7 @@ States:
 
 Contains:
 - Logo mark (inline SVG)
-- Anchor links (`#programs`, `#audience`, `#advantage`, `#demo`, `#industries`)
+- Anchor links (`#audience`, `#advantage`, `#demo`, `#industries`)
 - Language switcher pill (EN / UZ / RU) — UI only, no backend
 - Search icon + hamburger icon (mobile)
 
@@ -118,12 +118,6 @@ Trigger: IntersectionObserver at 12% visibility threshold.
 
 ---
 
-## Programs Side-Nav
-
-Inside `.programs` section, a sticky left rail shows 4 program tracks. JS function `initProgramsSideNav()` listens for scroll and sets `.is-active` on the current visible track row.
-
----
-
 ## Industries Grid
 
-`.industries` — 3-column full-height image grid (100vh). Each cell: hover reveals overlay text. No JS needed — pure CSS `:hover` transitions.
+`.industries` — 2-column full-height image grid (100vh). Each cell: hover reveals overlay text. No JS needed — pure CSS `:hover` transitions.

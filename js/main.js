@@ -1,5 +1,5 @@
 /* Aerotech Drone School — UI behavior
- * Accordions, scroll reveal, programs side-nav active state. */
+ * Accordions, scroll reveal, nav, lead CTA, modals. */
 
 (() => {
   'use strict';
@@ -25,6 +25,8 @@
   // Accordion toggles (advantage + audience sections)
   const initAccordions = () => {
     const advantageImg = document.getElementById('advantage-img');
+    const stepTitle = document.getElementById('advantage-step-title');
+    const reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     const swapAdvantageImg = (src, alt) => {
       if (!advantageImg || !src || advantageImg.getAttribute('src') === src) return;
@@ -32,7 +34,6 @@
         advantageImg.src = src;
         if (alt) advantageImg.alt = alt;
       };
-      const reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       if (reduced) {
         apply();
         return;
@@ -46,6 +47,21 @@
       advantageImg.addEventListener('transitionend', onEnd);
     };
 
+    const swapText = (el, value) => {
+      if (!el || el.textContent === value) return;
+      if (reduced) {
+        el.textContent = value;
+        return;
+      }
+      el.classList.add('swapping');
+      const onEnd = () => {
+        el.textContent = value;
+        el.classList.remove('swapping');
+        el.removeEventListener('transitionend', onEnd);
+      };
+      el.addEventListener('transitionend', onEnd);
+    };
+
     document.querySelectorAll('.acc-item, .aud-item').forEach((item) => {
       item.addEventListener('click', () => {
         const wasOpen = item.classList.contains('open');
@@ -56,9 +72,13 @@
         if (!wasOpen) {
           item.classList.add('open');
           const src = item.dataset.illu;
-          if (src) {
-            const heading = item.querySelector('h3');
-            swapAdvantageImg(src, heading ? heading.textContent.trim() : '');
+          const heading = item.querySelector('h3');
+          const headingText = heading ? heading.textContent.trim() : '';
+          if (src) swapAdvantageImg(src, headingText);
+
+          // Update editorial caption if this is the advantage accordion
+          if (item.classList.contains('acc-item')) {
+            swapText(stepTitle, headingText);
           }
         }
       });
@@ -79,30 +99,6 @@
       { threshold: 0.12 }
     );
     document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
-  };
-
-  // Programs side-nav active state syncs with the visible row
-  const initProgramsSideNav = () => {
-    const sideNav = document.getElementById('prog-side');
-    if (!sideNav) return;
-
-    const links = sideNav.querySelectorAll('a');
-    const rows = document.querySelectorAll('.programs-row');
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const idx = [...rows].indexOf(entry.target);
-            links.forEach((link) => link.classList.remove('active'));
-            if (links[idx]) links[idx].classList.add('active');
-          }
-        });
-      },
-      { threshold: 0.5 }
-    );
-
-    rows.forEach((row) => observer.observe(row));
   };
 
   // Nav scroll behavior:
@@ -146,15 +142,50 @@
     apply();
   };
 
-  // Language switcher (visual only — set active state on click)
+  // Language switcher (visual only — dropdown with flags)
   const initLangSwitch = () => {
     const sw = document.querySelector('.lang-switch');
     if (!sw) return;
-    sw.querySelectorAll('a').forEach((link) => {
+    const trigger = sw.querySelector('.lang-switch__current');
+    const menu = sw.querySelector('.lang-switch__menu');
+    const codeEl = sw.querySelector('.lang-switch__code');
+    const flagEl = trigger && trigger.querySelector('.lang-switch__flag');
+    if (!trigger || !menu) return;
+
+    const open = () => {
+      menu.hidden = false;
+      trigger.setAttribute('aria-expanded', 'true');
+    };
+    const close = () => {
+      menu.hidden = true;
+      trigger.setAttribute('aria-expanded', 'false');
+    };
+
+    trigger.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (menu.hidden) open(); else close();
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!sw.contains(e.target)) close();
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') close();
+    });
+
+    menu.querySelectorAll('a').forEach((link) => {
       link.addEventListener('click', (e) => {
         e.preventDefault();
-        sw.querySelectorAll('a').forEach((a) => a.classList.remove('active'));
-        link.classList.add('active');
+        menu.querySelectorAll('a').forEach((a) => a.classList.remove('is-active'));
+        menu.querySelectorAll('li').forEach((li) => li.setAttribute('aria-selected', 'false'));
+        link.classList.add('is-active');
+        const li = link.closest('li');
+        if (li) li.setAttribute('aria-selected', 'true');
+        if (codeEl) codeEl.textContent = link.dataset.lang || codeEl.textContent;
+        const newFlag = link.querySelector('.lang-switch__flag');
+        if (flagEl && newFlag) flagEl.innerHTML = newFlag.innerHTML;
+        close();
       });
     });
   };
@@ -808,7 +839,6 @@
   document.addEventListener('DOMContentLoaded', () => {
     initAccordions();
     initScrollReveal();
-    initProgramsSideNav();
     initNavScroll();
     initNavDropdown();
     initLangSwitch();
