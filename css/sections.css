@@ -194,11 +194,46 @@
 
 .statement h2 {
   font-size: clamp(40px, 5.2vw, 72px);
-  max-width: 14ch;
+  max-width: 22ch;
   margin: 0 auto 30px;
   font-weight: 500;
   line-height: 1.05;
   letter-spacing: -0.025em;
+}
+
+.typewriter {
+  display: inline-flex;
+  align-items: baseline;
+  justify-content: flex-start;
+  color: var(--accent-2);
+  white-space: nowrap;
+  min-width: 10ch;
+}
+
+.typewriter__text {
+  display: inline-block;
+  min-height: 1em;
+  text-align: left;
+}
+
+.typewriter__caret {
+  display: inline-block;
+  width: 3px;
+  height: 0.85em;
+  margin-left: 5px;
+  background: var(--accent-2);
+  border-radius: 1px;
+  align-self: center;
+  animation: caret-blink 1.1s ease-in-out infinite;
+}
+
+@keyframes caret-blink {
+  0%, 40%   { opacity: 1; }
+  60%, 100% { opacity: 0.15; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .typewriter__caret { animation: none; opacity: 0.6; }
 }
 
 .statement p {

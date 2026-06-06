@@ -836,6 +836,77 @@
     update();
   };
 
+  const initTypewriter = () => {
+    const typer = document.querySelector('.typewriter');
+    if (!typer) return;
+    const textEl = typer.querySelector('.typewriter__text');
+    if (!textEl) return;
+
+    const words = (typer.dataset.words || '')
+      .split(',')
+      .map((w) => w.trim())
+      .filter(Boolean);
+    if (!words.length) return;
+
+    const reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduced) {
+      textEl.textContent = words[0];
+      return;
+    }
+
+    const TYPE_MS = 60;
+    const TYPE_JITTER = 35;
+    const DELETE_MS = 30;
+    const DELETE_JITTER = 15;
+    const HOLD_MS = 1300;
+    const HOLD_JITTER = 350;
+    const GAP_MS = 280;
+    const jitter = (base, range) => base + Math.random() * range;
+
+    let wordIdx = 0;
+    let charCount = 0;
+    let phase = 'typing';
+
+    const tick = () => {
+      const word = words[wordIdx];
+      if (phase === 'typing') {
+        charCount++;
+        textEl.textContent = word.slice(0, charCount);
+        if (charCount >= word.length) {
+          phase = 'holding';
+          setTimeout(tick, jitter(HOLD_MS, HOLD_JITTER));
+        } else {
+          setTimeout(tick, jitter(TYPE_MS, TYPE_JITTER));
+        }
+        return;
+      }
+      if (phase === 'holding') {
+        phase = 'deleting';
+        setTimeout(tick, jitter(DELETE_MS, DELETE_JITTER));
+        return;
+      }
+      if (phase === 'deleting') {
+        charCount--;
+        textEl.textContent = word.slice(0, Math.max(0, charCount));
+        if (charCount <= 0) {
+          phase = 'gap';
+          wordIdx = (wordIdx + 1) % words.length;
+          setTimeout(tick, GAP_MS);
+        } else {
+          setTimeout(tick, jitter(DELETE_MS, DELETE_JITTER));
+        }
+        return;
+      }
+      if (phase === 'gap') {
+        phase = 'typing';
+        tick();
+      }
+    };
+
+    textEl.textContent = '';
+    tick();
+  };
+
   document.addEventListener('DOMContentLoaded', () => {
     initAccordions();
     initScrollReveal();
@@ -847,5 +918,6 @@
     initOfferModal();
     initJourneyScroll();
     initLevelCarousel();
+    initTypewriter();
   });
 })();
