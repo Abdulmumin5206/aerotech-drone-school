@@ -24,27 +24,25 @@
 
   // Accordion toggles (advantage + audience sections)
   const initAccordions = () => {
-    const advantageImg = document.getElementById('advantage-img');
-    const stepTitle = document.getElementById('advantage-step-title');
     const reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    const swapAdvantageImg = (src, alt) => {
-      if (!advantageImg || !src || advantageImg.getAttribute('src') === src) return;
+    const swapImg = (imgEl, src, alt) => {
+      if (!imgEl || !src || imgEl.getAttribute('src') === src) return;
       const apply = () => {
-        advantageImg.src = src;
-        if (alt) advantageImg.alt = alt;
+        imgEl.src = src;
+        if (alt) imgEl.alt = alt;
       };
       if (reduced) {
         apply();
         return;
       }
-      advantageImg.classList.add('swapping');
+      imgEl.classList.add('swapping');
       const onEnd = () => {
         apply();
-        advantageImg.classList.remove('swapping');
-        advantageImg.removeEventListener('transitionend', onEnd);
+        imgEl.classList.remove('swapping');
+        imgEl.removeEventListener('transitionend', onEnd);
       };
-      advantageImg.addEventListener('transitionend', onEnd);
+      imgEl.addEventListener('transitionend', onEnd);
     };
 
     const swapText = (el, value) => {
@@ -62,25 +60,37 @@
       el.addEventListener('transitionend', onEnd);
     };
 
-    document.querySelectorAll('.acc-item, .aud-item').forEach((item) => {
-      item.addEventListener('click', () => {
-        const wasOpen = item.classList.contains('open');
-        // Close siblings within the same accordion
-        item.parentElement
-          .querySelectorAll('.acc-item, .aud-item')
-          .forEach((sibling) => sibling.classList.remove('open'));
-        if (!wasOpen) {
-          item.classList.add('open');
-          const src = item.dataset.illu;
-          const heading = item.querySelector('h3');
-          const headingText = heading ? heading.textContent.trim() : '';
-          if (src) swapAdvantageImg(src, headingText);
+    // Each accordion describes its own image + caption target so the same
+    // click handler can drive multiple "image + accordion" sections.
+    const groups = [
+      {
+        itemSel: '.acc-item',
+        imgEl: document.getElementById('advantage-img'),
+        titleEl: document.getElementById('advantage-step-title'),
+      },
+      {
+        itemSel: '.aud-item',
+        imgEl: document.getElementById('audience-img'),
+        titleEl: document.getElementById('audience-step-title'),
+      },
+    ];
 
-          // Update editorial caption if this is the advantage accordion
-          if (item.classList.contains('acc-item')) {
-            swapText(stepTitle, headingText);
+    groups.forEach((group) => {
+      document.querySelectorAll(group.itemSel).forEach((item) => {
+        item.addEventListener('click', () => {
+          const wasOpen = item.classList.contains('open');
+          item.parentElement
+            .querySelectorAll(group.itemSel)
+            .forEach((sibling) => sibling.classList.remove('open'));
+          if (!wasOpen) {
+            item.classList.add('open');
+            const heading = item.querySelector('h3');
+            const headingText = heading ? heading.textContent.trim() : '';
+            const src = item.dataset.illu;
+            if (src) swapImg(group.imgEl, src, headingText);
+            swapText(group.titleEl, headingText);
           }
-        }
+        });
       });
     });
   };
@@ -907,6 +917,53 @@
     tick();
   };
 
+  // Count-up for the NUMBERS section. Each [data-count] animates from 0 to its
+  // target the first time it scrolls into view. The trailing .unit span (e.g.
+  // the "+" in "240+") is preserved throughout.
+  const initCountUp = () => {
+    const els = document.querySelectorAll('[data-count]');
+    if (!els.length) return;
+
+    const reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    const run = (el) => {
+      const target = parseInt(el.dataset.count, 10);
+      if (isNaN(target)) return;
+      const unitEl = el.querySelector('.unit');
+      const unitHTML = unitEl ? unitEl.outerHTML : '';
+      const set = (n) => { el.innerHTML = String(n) + unitHTML; };
+
+      if (reduced) {
+        set(target);
+        return;
+      }
+
+      const DURATION = 1600;
+      const start = performance.now();
+      const ease = (t) => 1 - Math.pow(1 - t, 3); // easeOutCubic
+      const frame = (now) => {
+        const p = Math.min(1, (now - start) / DURATION);
+        set(Math.round(ease(p) * target));
+        if (p < 1) requestAnimationFrame(frame);
+      };
+      set(0);
+      requestAnimationFrame(frame);
+    };
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            run(entry.target);
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.4 }
+    );
+    els.forEach((el) => observer.observe(el));
+  };
+
   document.addEventListener('DOMContentLoaded', () => {
     initAccordions();
     initScrollReveal();
@@ -919,5 +976,6 @@
     initJourneyScroll();
     initLevelCarousel();
     initTypewriter();
+    initCountUp();
   });
 })();
