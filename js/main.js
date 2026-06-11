@@ -964,6 +964,24 @@
     els.forEach((el) => observer.observe(el));
   };
 
+  // Scroll-driven theme for the "light zone" (numbers → visit-lab → teaser →
+  // industries). The rootMargin collapses the observer root to a line at the
+  // vertical middle of the viewport, so .is-light is on exactly while that line
+  // sits inside the band. Cheap by design: a single observer, and the class
+  // only flips on enter/leave — so the CSS cross-fade runs at most twice, never
+  // per scroll frame.
+  const initLightZone = () => {
+    const zone = document.querySelector('.light-zone');
+    if (!zone) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        zone.classList.toggle('is-light', entries[0].isIntersecting);
+      },
+      { rootMargin: '-50% 0px -50% 0px', threshold: 0 }
+    );
+    observer.observe(zone);
+  };
+
   document.addEventListener('DOMContentLoaded', () => {
     initAccordions();
     initScrollReveal();
@@ -977,5 +995,6 @@
     initLevelCarousel();
     initTypewriter();
     initCountUp();
+    initLightZone();
   });
 })();

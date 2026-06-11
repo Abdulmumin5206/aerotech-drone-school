@@ -643,18 +643,57 @@
   border-bottom: 1px solid var(--line);
 }
 
-.demo-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  min-height: 600px;
+/* Full-bleed photo variant: the lab image covers the whole section and the
+   copy sits over a light scrim on the left. The scrim is kept gentle so the
+   photo still reads clearly — just enough lift to keep the near-black copy
+   legible (the text-shadow on .demo-copy carries the rest). */
+.demo--photo {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.demo-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -2;
+}
+
+.demo-scrim {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(
+    100deg,
+    rgba(247, 248, 250, 0.7) 0%,
+    rgba(247, 248, 250, 0.5) 30%,
+    rgba(247, 248, 250, 0.2) 58%,
+    rgba(247, 248, 250, 0) 80%
+  );
+}
+
+.demo--photo .container {
+  min-height: 640px;
+  display: flex;
+  align-items: center;
 }
 
 .demo-copy {
-  padding: 100px 64px;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  border-right: 1px solid var(--line);
+  max-width: 520px;
+  padding: 120px 0;
+}
+
+.demo--photo .demo-copy {
+  color: #0c0e12;
+  /* Soft white halo keeps the dark copy legible over the lighter/busier parts
+     of the photo without laying a fade over the image itself. */
+  text-shadow: 0 1px 10px rgba(255, 255, 255, 0.65);
 }
 
 .demo-copy .eyebrow {
@@ -669,6 +708,10 @@
   line-height: 1.05;
 }
 
+.demo--photo .demo-copy h2 {
+  color: #0c0e12;
+}
+
 .demo-copy p {
   color: var(--text-dim);
   font-size: 15px;
@@ -677,26 +720,109 @@
   margin-bottom: 32px;
 }
 
+.demo--photo .demo-copy p {
+  color: #353a42;
+}
+
 .demo-copy .btn-link {
   align-self: flex-start;
 }
 
-.demo-photo {
-  background-size: cover;
-  background-position: center;
+.demo--photo .demo-copy .btn-link {
+  color: #0c0e12;
+}
+
+.demo--photo .demo-copy .btn-link:hover {
+  color: var(--accent);
+}
+
+/* Visit-lab copy polish: purple eyebrow + accented heading word. */
+.demo-eyebrow {
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 20px;
+}
+
+.demo--photo .demo-copy h2 {
+  font-weight: 500;
+  letter-spacing: -0.03em;
+}
+
+.demo-accent {
+  color: var(--accent);
+}
+
+/* ---------- LIGHT ZONE (scroll-driven theme) ----------
+   The "chapter" (numbers → visit-lab → teaser → industries) cross-fades from
+   the dark site theme to white as it scrolls through view. initLightZone()
+   toggles .is-light when the middle of the viewport is inside the band — that's
+   at most two class flips (enter/leave), so the cross-fade only fires twice
+   rather than on every scroll frame. Everything keys off CSS variables, so the
+   single class change cascades to all descendants; the purple accent
+   (--accent) is intentionally left untouched. */
+.light-zone {
+  background-color: var(--bg);
+  transition: background-color 0.6s var(--ease);
+}
+
+.light-zone.is-light {
+  --bg: #ffffff;
+  --bg-2: #f4f5f7;
+  --line: rgba(0, 0, 0, 0.12);
+  --line-strong: rgba(0, 0, 0, 0.22);
+  --text: #0c0e12;
+  --text-dim: rgba(0, 0, 0, 0.6);
+  --text-faint: rgba(0, 0, 0, 0.4);
+}
+
+/* Custom-property changes only animate where the using element declares a
+   transition, so the colour-bearing elements opt in here to cross-fade in step
+   with the background. Kept to a tight list to keep the repaint cheap. */
+.light-zone .eyebrow,
+.light-zone .demo-eyebrow,
+.light-zone h2,
+.light-zone h3,
+.light-zone p,
+.light-zone .number,
+.light-zone .val,
+.light-zone .label {
+  transition: color 0.6s var(--ease), border-color 0.6s var(--ease);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .light-zone,
+  .light-zone .eyebrow,
+  .light-zone .demo-eyebrow,
+  .light-zone h2,
+  .light-zone h3,
+  .light-zone p,
+  .light-zone .number,
+  .light-zone .val,
+  .light-zone .label {
+    transition: none;
+  }
 }
 
 @media (max-width: 920px) {
-  .demo-grid {
-    grid-template-columns: 1fr;
+  .demo--photo .container {
+    min-height: 520px;
   }
   .demo-copy {
-    padding: 64px 24px;
-    border-right: 0;
-    border-bottom: 1px solid var(--line);
+    padding: 72px 0;
   }
-  .demo-photo {
-    min-height: 320px;
+  /* Copy fills the width on narrow screens, so lift the whole frame with a
+     gentle vertical fade instead of just the left edge. */
+  .demo-scrim {
+    background: linear-gradient(
+      180deg,
+      rgba(247, 248, 250, 0.66) 0%,
+      rgba(247, 248, 250, 0.42) 55%,
+      rgba(247, 248, 250, 0.12) 100%
+    );
   }
 }
 
@@ -809,9 +935,12 @@
   margin-bottom: 20px;
 }
 
+/* The industry tiles sit on dark imagery with their own dark gradients, so the
+   overlay text stays white even though the surrounding light zone flips the
+   colour tokens to dark. */
 .industry-hover .btn-link {
-  color: var(--text);
-  border-bottom-color: var(--line-strong);
+  color: #fff;
+  border-bottom-color: rgba(255, 255, 255, 0.4);
 }
 
 .industry-label {
@@ -821,6 +950,7 @@
   right: 0;
   padding: 80px 36px 32px;
   background: linear-gradient(to top, rgba(0, 0, 0, 0.78) 0%, rgba(0, 0, 0, 0.35) 60%, transparent 100%);
+  color: #fff;
   font-family: var(--font-display);
   font-size: clamp(20px, 1.9vw, 26px);
   font-weight: 500;
