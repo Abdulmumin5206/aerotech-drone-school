@@ -306,6 +306,16 @@
 </section>
 
 <!-- ============================================================
+     LIGHT ZONE — audience → numbers → visit-lab → teaser → industries.
+     Scroll-driven theme: cross-fades from the dark site theme to white as the
+     middle of the viewport enters this band, and back to dark on the way out.
+     Kept deliberately cheap — a single IntersectionObserver toggles one class
+     (.is-light) at most twice (enter/leave); CSS handles the rest.
+     Driven by initLightZone() in js/main.js.
+     ============================================================ -->
+<div class="light-zone">
+
+<!-- ============================================================
      AUDIENCE
      ============================================================ -->
 <section class="audience reveal" id="audience">
@@ -366,15 +376,11 @@
   </div>
 </section>
 
-<!-- ============================================================
-     LIGHT ZONE — numbers → visit-lab → teaser → industries.
-     Scroll-driven theme: cross-fades from the dark site theme to white as the
-     middle of the viewport enters this band, and back to dark on the way out.
-     Kept deliberately cheap — a single IntersectionObserver toggles one class
-     (.is-light) at most twice (enter/leave); CSS handles the rest.
-     Driven by initLightZone() in js/main.js.
-     ============================================================ -->
-<div class="light-zone">
+<!-- Inner band: this is what initLightZone() observes, so the white cross-fade
+     is triggered by the NUMBERS section (not the audience section above it).
+     The .is-light class is still toggled on the whole .light-zone, so audience
+     flips white in step with numbers. -->
+<div class="light-zone-band">
 
 <!-- ============================================================
      NUMBERS
@@ -469,6 +475,8 @@
 
   </div>
 </section>
+
+</div><!-- /.light-zone-band -->
 
 </div><!-- /.light-zone -->
 
