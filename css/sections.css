@@ -923,6 +923,28 @@
   color: var(--text);
 }
 
+.industries-intro {
+  max-width: 56ch;
+  margin-top: 24px;
+  color: var(--text-dim);
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+/* Header row — heading block on the left, services CTA on the right.
+   Mirrors .ds-pathway-head; stacks below the heading on mobile. */
+.industries-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 48px;
+}
+
+.industries-head__cta {
+  flex-shrink: 0;
+  margin-bottom: 6px;
+}
+
 .industries-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -1035,6 +1057,11 @@
   }
   .industries .container {
     padding-bottom: 56px;
+  }
+  .industries-head {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 28px;
   }
 }
 
@@ -1249,94 +1276,6 @@
    ============================================================ */
 
 /* ---------- HOMEPAGE TEASER ---------- */
-.ds-teaser {
-  padding: 140px 0;
-  border-bottom: 1px solid var(--line);
-  text-align: center;
-}
-
-.ds-teaser .eyebrow {
-  margin-bottom: 28px;
-}
-
-.ds-teaser h2 {
-  font-size: clamp(36px, 4.6vw, 64px);
-  font-weight: 500;
-  line-height: 1.05;
-  letter-spacing: -0.025em;
-  max-width: 22ch;
-  margin: 0 auto 24px;
-}
-
-.ds-teaser p {
-  max-width: 56ch;
-  margin: 0 auto;
-  color: var(--text-dim);
-  font-size: 15px;
-  line-height: 1.6;
-}
-
-.ds-teaser-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1px;
-  margin: 64px 0 56px;
-  background: var(--line);
-  border: 1px solid var(--line);
-}
-
-.ds-teaser-card {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-  align-items: flex-start;
-  padding: 36px 32px;
-  background: var(--bg);
-  text-align: left;
-  transition: background 0.25s var(--ease);
-}
-
-.ds-teaser-card:hover {
-  background: var(--bg-2);
-}
-
-.ds-teaser-card__tag {
-  font-family: var(--font-body);
-  font-size: 11px;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--accent-2);
-}
-
-.ds-teaser-card__title {
-  font-family: var(--font-display);
-  font-size: 22px;
-  font-weight: 500;
-  letter-spacing: -0.015em;
-  color: var(--text);
-  transition: color 0.2s var(--ease);
-}
-
-.ds-teaser-card:hover .ds-teaser-card__title {
-  color: var(--accent-2);
-}
-
-.ds-teaser-card__desc {
-  font-size: 14px;
-  line-height: 1.55;
-  color: var(--text-dim);
-}
-
-.ds-teaser-btn {
-  margin-top: 8px;
-}
-
-@media (max-width: 920px) {
-  .ds-teaser-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
 /* ---------- DRONE SCHOOL HERO / INTRO ---------- */
 .ds-hero {
   position: relative;
@@ -2680,14 +2619,10 @@
 }
 
 @media (max-width: 720px) {
-  .ds-teaser,
   .ds-programs,
   .ds-deepdive,
   .ds-final-cta {
     padding: 88px 0;
-  }
-  .ds-teaser-grid {
-    margin: 48px 0 40px;
   }
   .ds-deepdive__head {
     margin-bottom: 56px;

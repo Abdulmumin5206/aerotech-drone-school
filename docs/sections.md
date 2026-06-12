@@ -9,15 +9,13 @@ All sections are in `index.html`. Styles in `css/sections.css`. Single-page site
 | 0 | — | `.nav` | Fixed top navigation bar |
 | 1 | — | `.hero` | Full-bleed video hero |
 | 2 | — | `.statement` | Value proposition statement |
-| 3 | — | `.ds-teaser` | Drone School hub — 3 cards → `/drone-school/` |
-| 4 | — | `.ds-teaser` | Drone Services hub — 3 cards → `/services/` |
 | 5 | `#advantage` | `.advantage` | Why Aerotech (accordion) |
 | 6 | `#journey` | `.journey` | Sticky-scroll video + text steps |
 | 7 | `#audience` | `.audience` | Who We Teach (accordion) |
 | 8 | — | `.numbers` | Stats (4 large display numbers) |
 | 9 | `#demo` | `.demo` | Visit / location section |
 | 10 | — | `.teaser` | Short centered statement |
-| 11 | `#industries` | `.industries` | 2-col image grid (Mapping, Inspection) |
+| 11 | `#industries` | `.industries` | 4-col hover image grid + Drone Services CTA → `/services/` |
 | 12 | — | `.footer` | Footer (inverted color scheme) |
 
 ---
@@ -35,15 +33,10 @@ All sections are in `index.html`. Styles in `css/sections.css`. Single-page site
 - Padding: 140px top/bottom (desktop)
 - Has `.reveal` class
 
-## Drone School Teaser (`.ds-teaser`)
-- 3 cards in a row + headline + body + bottom CTA → `/drone-school/`
-- First of two sibling hub sections (school + services)
-- Has `.reveal` class
-
-## Drone Services Teaser (`.ds-teaser`)
-- Identical structure to Drone School teaser, content swap
-- 3 cards: Aerial Mapping / Infrastructure Inspection / Custom Builds → `/services/`
-- Has `.reveal` class
+> **Note:** The old `.ds-teaser` hub sections (Drone School / Drone Services) were
+> removed. The Drone Services content was merged into the `.industries` section below,
+> which now carries the intro copy, working `Learn More` links, and the
+> "Explore Drone Services" CTA → `/services/`.
 
 ## Advantage (`.advantage`)
 - 2-column grid: SVG illustration (drone quadcopter schematic) | 4-item accordion
@@ -74,11 +67,13 @@ All sections are in `index.html`. Styles in `css/sections.css`. Single-page site
 - Transition section between Demo and Industries
 
 ## Industries (`.industries`)
-- 100vh, 2-column CSS grid
-- Each cell is a full-height image (background-image)
-- Hover: dark overlay fades in + text appears (pure CSS, no JS)
-- Columns: Mapping / Inspection
-- No `.reveal` — full-viewport, always visible
+- Header (`.container`): eyebrow + H2 + `.industries-intro` lead paragraph
+- Full-bleed grid: 4 columns (`.industry-col`), wraps 2×2 ≤1100px, single column ≤920px
+- Each cell is a full-height `<img>`; hover fades in a dark overlay + copy + `Learn More` link (pure CSS, no JS)
+- Columns: Aerial Mapping / Infrastructure Inspection / Subsurface Survey / Custom Builds & R&D
+- `Learn More` links → matching `/services/#...` anchors (Subsurface → `/services/` overview)
+- Closes with `.industries-cta`: "Explore Drone Services" `.btn-bracket` → `/services/`
+- Has `.reveal` class
 
 ## Footer (`.footer`)
 - **Inverted color scheme:** white background, dark text
