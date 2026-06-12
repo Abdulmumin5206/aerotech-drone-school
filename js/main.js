@@ -927,27 +927,54 @@
   };
 
   // Scroll-driven theme for the "light zone" (audience → numbers → visit-lab →
-  // teaser → industries). The rootMargin collapses the observer root to a line
-  // in the upper quarter of the viewport (25% down), so .is-light flips on once
-  // you've scrolled a bit INTO the numbers section rather than the moment it
-  // peeks in. (Lower % = trigger line higher up = fade fires later in the scroll.)
-  // We observe the inner
-  // .light-zone-band (numbers → industries) so the cross-fade is triggered by
-  // the numbers section, but toggle the class on the whole .light-zone so the
-  // audience section above flips white in step. Cheap by design: a single
-  // observer, and the class only flips on enter/leave — so the CSS cross-fade
-  // runs at most twice, never per scroll frame.
+  // teaser). The site cross-fades from the dark theme to white as this band
+  // scrolls through view; .is-light is toggled on the whole .light-zone so the
+  // audience section flips in step, and everything keys off CSS variables.
+  //
+  // We flip the theme when an imaginary trigger line — sitting LIGHT_TRIGGER
+  // viewports ABOVE the viewport top — falls inside the band. Because the
+  // numbers section is taller than the viewport, keying off its top fired the
+  // fade far too early, so the line sits above the fold: the flip lands once
+  // you've scrolled the numbers section up to roughly its centre, as the 2030
+  // row comes into reach. Bigger LIGHT_TRIGGER = line higher up = flip later.
+  //
+  // We read the band's position synchronously in a rAF (driven by the scroll
+  // event, which the smooth-scroll loop's own scrollTo also fires) rather than
+  // via IntersectionObserver: IO batches its callbacks asynchronously, so during
+  // a fast momentum fling the toggle landed a frame or two late and you'd catch
+  // a brief flash of the wrong theme. The rect read is one cheap measurement per
+  // frame, throttled to a single rAF, and the class only flips when the state
+  // actually changes — so the CSS cross-fade still runs at most twice.
+  const LIGHT_TRIGGER = 0.8; // viewports above the top edge; bigger = flip later
   const initLightZone = () => {
     const zone = document.querySelector('.light-zone');
     const band = document.querySelector('.light-zone-band') || zone;
     if (!zone) return;
-    const observer = new IntersectionObserver(
-      (entries) => {
-        zone.classList.toggle('is-light', entries[0].isIntersecting);
-      },
-      { rootMargin: '-25% 0px -75% 0px', threshold: 0 }
-    );
-    observer.observe(band);
+
+    let isLight = false;
+    let queued = false;
+
+    const update = () => {
+      queued = false;
+      const line = -LIGHT_TRIGGER * window.innerHeight;
+      const r = band.getBoundingClientRect();
+      const shouldLight = r.top <= line && r.bottom >= line;
+      if (shouldLight !== isLight) {
+        isLight = shouldLight;
+        zone.classList.toggle('is-light', isLight);
+      }
+    };
+
+    const onScroll = () => {
+      if (!queued) {
+        queued = true;
+        requestAnimationFrame(update);
+      }
+    };
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll, { passive: true });
+    update();
   };
 
   // Smooth, momentum-style scrolling ("Lenis-lite"). Each frame we ease the
