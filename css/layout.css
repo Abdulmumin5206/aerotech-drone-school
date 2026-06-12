@@ -586,7 +586,6 @@ section {
 
   background: var(--bg);
   color: var(--text);
-  border-top: 1px solid var(--line);
   padding-bottom: 32px;
 }
 
