@@ -814,6 +814,25 @@
   }
 }
 
+/* Teaser + Industries opt OUT of the scroll-driven cross-fade. Rather than
+   inheriting the light-zone's animated tokens, they pin the light theme on
+   permanently — background stays white, text stays dark — whether .is-light is
+   toggled on or off. They stay inside .light-zone-band so the fade-OUT still
+   triggers at the very bottom (off-screen, entering the footer) instead of
+   glitching mid-screen; their own opaque white background means the dark→white
+   cross-fade is simply never seen across these two sections. */
+.teaser,
+.industries {
+  --bg: #ffffff;
+  --bg-2: #f4f5f7;
+  --line: rgba(0, 0, 0, 0.12);
+  --line-strong: rgba(0, 0, 0, 0.22);
+  --text: #0c0e12;
+  --text-dim: rgba(0, 0, 0, 0.6);
+  --text-faint: rgba(0, 0, 0, 0.4);
+  background-color: #ffffff;
+}
+
 @media (max-width: 920px) {
   .demo--photo .container {
     min-height: 520px;
