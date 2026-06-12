@@ -586,36 +586,46 @@
   }
 }
 
-/* ---------- NUMBERS ---------- */
+/* ---------- NUMBERS (stacked rows: big figure left, caption right) ---------- */
 .numbers {
   padding: 120px 0;
   border-bottom: 1px solid var(--line);
 }
 
-.numbers-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 0;
+.numbers-intro {
+  margin-bottom: 28px;
 }
 
+.numbers-list {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Each stat is a full-width row divided by a hairline, the figure pinned left
+   and the caption pinned to a fixed column on the right. */
 .number {
-  padding: 0 32px;
-  border-left: 1px solid var(--line);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+  padding: 44px 0;
+  border-top: 1px solid var(--line);
 }
 
+/* No outer frame — drop the line above the first figure and below the last,
+   keeping only the hairline dividers between rows. */
 .number:first-child {
-  padding-left: 0;
-  border-left: 0;
+  border-top: 0;
 }
 
 .number .val {
   font-family: var(--font-display);
-  font-size: clamp(64px, 8vw, 120px);
+  font-size: clamp(64px, 11vw, 150px);
   font-weight: 500;
   letter-spacing: -0.04em;
-  line-height: 0.95;
-  margin-bottom: 16px;
+  line-height: 0.92;
   color: var(--text);
+  flex: 0 0 auto;
 }
 
 .number .val .unit {
@@ -623,20 +633,26 @@
 }
 
 .number .label {
-  font-size: 13px;
+  flex: 0 0 40ch;
+  font-size: 16px;
   color: var(--text-dim);
-  line-height: 1.45;
-  max-width: 22ch;
+  line-height: 1.5;
 }
 
 @media (max-width: 920px) {
-  .numbers-grid {
-    grid-template-columns: 1fr 1fr;
-    row-gap: 56px;
-  }
   .number {
-    border-left: 0;
-    padding: 0;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 36px 0;
+  }
+  .number .val {
+    font-size: clamp(56px, 18vw, 96px);
+  }
+  .number .label {
+    flex: 0 0 auto;
+    max-width: 40ch;
+    font-size: 15px;
   }
 }
 
@@ -671,10 +687,10 @@
   z-index: -1;
   background: linear-gradient(
     100deg,
-    rgba(247, 248, 250, 0.7) 0%,
-    rgba(247, 248, 250, 0.5) 30%,
-    rgba(247, 248, 250, 0.2) 58%,
-    rgba(247, 248, 250, 0) 80%
+    rgba(247, 248, 250, 0.82) 0%,
+    rgba(247, 248, 250, 0.6) 30%,
+    rgba(247, 248, 250, 0.22) 54%,
+    rgba(247, 248, 250, 0) 74%
   );
 }
 
@@ -725,6 +741,7 @@
 
 .demo--photo .demo-copy p {
   color: #353a42;
+  font-weight: 600;
 }
 
 .demo-copy .btn-link {
@@ -751,7 +768,7 @@
 }
 
 .demo--photo .demo-copy h2 {
-  font-weight: 500;
+  font-weight: 700;
   letter-spacing: -0.03em;
 }
 
@@ -769,7 +786,7 @@
    (--accent) is intentionally left untouched. */
 .light-zone {
   background-color: var(--bg);
-  transition: background-color 0.6s var(--ease);
+  transition: background-color 0.3s var(--ease);
 }
 
 .light-zone.is-light {
@@ -785,6 +802,9 @@
 /* Custom-property changes only animate where the using element declares a
    transition, so the colour-bearing elements opt in here to cross-fade in step
    with the background. Kept to a tight list to keep the repaint cheap. */
+.light-zone .audience,
+.light-zone .numbers,
+.light-zone .demo,
 .light-zone .eyebrow,
 .light-zone .demo-eyebrow,
 .light-zone h2,
@@ -795,11 +815,14 @@
 .light-zone .label,
 .light-zone .aud-item,
 .light-zone .aud-body {
-  transition: color 0.6s var(--ease), border-color 0.6s var(--ease);
+  transition: color 0.3s var(--ease), border-color 0.3s var(--ease);
 }
 
 @media (prefers-reduced-motion: reduce) {
   .light-zone,
+  .light-zone .audience,
+  .light-zone .numbers,
+  .light-zone .demo,
   .light-zone .eyebrow,
   .light-zone .demo-eyebrow,
   .light-zone h2,
@@ -845,9 +868,9 @@
   .demo-scrim {
     background: linear-gradient(
       180deg,
-      rgba(247, 248, 250, 0.66) 0%,
-      rgba(247, 248, 250, 0.42) 55%,
-      rgba(247, 248, 250, 0.12) 100%
+      rgba(247, 248, 250, 0.78) 0%,
+      rgba(247, 248, 250, 0.52) 55%,
+      rgba(247, 248, 250, 0.2) 100%
     );
   }
 }

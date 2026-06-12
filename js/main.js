@@ -4,11 +4,10 @@
 (() => {
   'use strict';
 
-  // Shared coordination flags between the offer modal and the lead drawer.
-  // Only one auto-popup fires per session — first-to-fire wins. Both remain
-  // available via their own triggers (drawer button / future "View offer" link).
+  // The offer modal still auto-fires once per session. The lead drawer no longer
+  // auto-opens on scroll — it opens only from the Contact tab and the
+  // "Get in Touch" buttons — so it needs no coordination flag of its own.
   let modalAutoFired = false;
-  let drawerAutoOpened = false;
 
   // Treat any browser refresh (F5, Ctrl+R, Ctrl+Shift+R) as a fresh visit so the
   // popups re-trigger. Submitted/redeemed flags still block forever.
@@ -309,16 +308,12 @@
     const trigger = document.getElementById('leadTrigger');
     if (!popup || !trigger) return;
 
-    const SESSION_KEY = 'aerotech_cta_session';        // suppress within tab session
-    const STORAGE_AUTOSEEN = 'aerotech_cta_autoseen';  // cross-session cap timestamp
     const STORAGE_SUBMITTED = 'aerotech_cta_submitted'; // permanent block on conversion
-    const CAP_MS = 3 * 24 * 60 * 60 * 1000; // 3-day cross-session cap
 
     const params = new URLSearchParams(location.search);
     const force = params.get('showcta') === '1';
 
     let isOpen = false;
-    let autoOpenedThisSession = false;
     let justOpenedAt = 0;
 
     const open = () => {
@@ -399,50 +394,17 @@
       }
     }, { passive: false });
 
-    // Auto-open: session-suppressed (unless this is a reload), 3-day cross-session
-    // cap (also bypassed on reload), never after submit. Suppressed if the offer
-    // modal already auto-fired this session. ?showcta=1 forces show for testing.
-    const canAutoOpen = () => {
-      if (force) return true;
-      if (autoOpenedThisSession) return false;
-      if (modalAutoFired) return false;
-      if (params.get('nocta') === '1') return false;
-      if (window.innerHeight < 600) return false;
-      try {
-        if (localStorage.getItem(STORAGE_SUBMITTED) === 'true') return false;
-        if (!isReload) {
-          if (sessionStorage.getItem(SESSION_KEY) === 'true') return false;
-          const seenAt = parseInt(localStorage.getItem(STORAGE_AUTOSEEN) || '0', 10);
-          if (seenAt && Date.now() - seenAt < CAP_MS) return false;
-        }
-      } catch (_) {}
-      return true;
-    };
-
-    const tryAutoOpen = () => {
-      if (!canAutoOpen()) return;
-      autoOpenedThisSession = true;
-      drawerAutoOpened = true;
-      try {
-        sessionStorage.setItem(SESSION_KEY, 'true');
-        localStorage.setItem(STORAGE_AUTOSEEN, String(Date.now()));
-      } catch (_) {}
-      open();
-      cleanupAutoTriggers();
-    };
-
-    const demoSection = document.getElementById('demo');
-    const sectionObserver = demoSection
-      ? new IntersectionObserver(
-          (entries) => { if (entries[0].isIntersecting) tryAutoOpen(); },
-          { threshold: 0.2 }
-        )
-      : null;
-    if (sectionObserver) sectionObserver.observe(demoSection);
-
-    const cleanupAutoTriggers = () => {
-      if (sectionObserver) sectionObserver.disconnect();
-    };
+    // No auto-open on scroll. The drawer opens only when the user asks: the
+    // right-edge Contact tab (above) or any [data-lead-open] button — e.g. the
+    // visit-lab and footer "Get in Touch" CTAs. preventDefault stops their
+    // href="#"/"#demo" fallback from jumping. ?showcta=1 still opens for testing.
+    document.querySelectorAll('[data-lead-open]').forEach((btn) => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        open();
+      });
+    });
+    if (force) open();
 
     // Slide the trigger out when the footer enters view so it doesn't overlap
     // footer buttons/links. Uses a separate class from .is-hidden (drawer-open
@@ -966,9 +928,9 @@
 
   // Scroll-driven theme for the "light zone" (audience → numbers → visit-lab →
   // teaser → industries). The rootMargin collapses the observer root to a line
-  // above the vertical middle of the viewport (35% down), so .is-light flips on
-  // as the numbers section rises into view — the fade fires right as you reach
-  // it. (Lower % = trigger line higher up = fade fires later in the scroll.)
+  // in the upper quarter of the viewport (25% down), so .is-light flips on once
+  // you've scrolled a bit INTO the numbers section rather than the moment it
+  // peeks in. (Lower % = trigger line higher up = fade fires later in the scroll.)
   // We observe the inner
   // .light-zone-band (numbers → industries) so the cross-fade is triggered by
   // the numbers section, but toggle the class on the whole .light-zone so the
@@ -983,9 +945,105 @@
       (entries) => {
         zone.classList.toggle('is-light', entries[0].isIntersecting);
       },
-      { rootMargin: '-35% 0px -65% 0px', threshold: 0 }
+      { rootMargin: '-25% 0px -75% 0px', threshold: 0 }
     );
     observer.observe(band);
+  };
+
+  // Smooth, momentum-style scrolling ("Lenis-lite"). Each frame we ease the
+  // REAL window scroll position toward a target instead of letting the wheel
+  // snap it — that's the gliding/inertia feel. Because it drives the real
+  // scroll (window.scrollTo) rather than transforming the page, position:sticky
+  // (journey), every IntersectionObserver effect, and the fixed nav/drawer all
+  // keep working untouched.
+  //
+  // Tuning: EASE is the glide — lower = floatier/longer, higher = snappier.
+  // WHEEL_MULT scales how far one wheel notch throws you.
+  const initSmoothScroll = () => {
+    const mq = (q) => window.matchMedia && window.matchMedia(q).matches;
+    // Touch screens already have native momentum (and don't fire wheel), and
+    // reduced-motion users opt out entirely.
+    if (mq('(prefers-reduced-motion: reduce)') || !mq('(pointer: fine)')) return;
+
+    const EASE = 0.1;        // 0–1 lerp factor per frame
+    const WHEEL_MULT = 0.75; // scale wheel delta — <1 = less travel per notch
+
+    let targetY = window.scrollY;
+    let currentY = targetY;
+    let animating = false;
+
+    const maxScroll = () =>
+      Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
+    const clamp = (v) => Math.max(0, Math.min(v, maxScroll()));
+
+    const tick = () => {
+      currentY += (targetY - currentY) * EASE;
+      if (Math.abs(targetY - currentY) < 0.5) {
+        currentY = targetY;
+        window.scrollTo(0, currentY);
+        animating = false;
+        return;
+      }
+      window.scrollTo(0, currentY);
+      requestAnimationFrame(tick);
+    };
+
+    const start = () => {
+      if (!animating) {
+        animating = true;
+        requestAnimationFrame(tick);
+      }
+    };
+
+    // Don't hijack wheel inside internal scrollers (drawer, modal, menus) or a
+    // horizontal carousel — let their native scroll/containment run.
+    const isProtected = (el) =>
+      !!(el && el.closest &&
+        el.closest('.cta-popup, .offer-modal, .mobile-menu, .nav-dropdown, .lang-switch__menu, .ds-carousel'));
+    const bodyLocked = () => document.body.style.overflow === 'hidden';
+
+    window.addEventListener('wheel', (e) => {
+      if (e.ctrlKey) return;                              // pinch-zoom
+      if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) return; // horizontal intent
+      if (bodyLocked() || isProtected(e.target)) return;
+
+      let delta = e.deltaY;
+      if (e.deltaMode === 1) delta *= 16;                 // lines → px
+      else if (e.deltaMode === 2) delta *= window.innerHeight; // pages → px
+
+      // Starting a fresh burst: resync to the live position so scrollbar drags
+      // or keyboard scrolls in between aren't fought.
+      if (!animating) {
+        currentY = window.scrollY;
+        targetY = window.scrollY;
+      }
+      targetY = clamp(targetY + delta * WHEEL_MULT);
+      e.preventDefault();
+      start();
+    }, { passive: false });
+
+    // While idle, keep the target honest if the page is moved by other means
+    // (scrollbar drag, keyboard, anchor focus).
+    window.addEventListener('scroll', () => {
+      if (!animating) {
+        currentY = window.scrollY;
+        targetY = window.scrollY;
+      }
+    }, { passive: true });
+
+    // In-page anchor jumps glide with the same easing instead of snapping.
+    document.addEventListener('click', (e) => {
+      const link = e.target.closest && e.target.closest('a[href^="#"]');
+      if (!link) return;
+      const hash = link.getAttribute('href');
+      if (!hash || hash === '#') return;
+      const dest = document.getElementById(hash.slice(1));
+      if (!dest) return;
+      e.preventDefault();
+      currentY = window.scrollY;
+      targetY = clamp(dest.getBoundingClientRect().top + window.scrollY);
+      start();
+    });
   };
 
   document.addEventListener('DOMContentLoaded', () => {
@@ -1002,5 +1060,6 @@
     initTypewriter();
     initCountUp();
     initLightZone();
+    initSmoothScroll();
   });
 })();
