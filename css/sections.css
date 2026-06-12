@@ -1650,6 +1650,23 @@
 
 .ds-carousel__track:active { cursor: grabbing; }
 
+/* While dragging, turn off snap + smooth so the track follows the pointer
+   1:1 instead of being yanked back to the nearest slide. Snap is restored on
+   release, which lands it cleanly on the closest slide. */
+.ds-carousel__track.is-dragging {
+  scroll-snap-type: none;
+  scroll-behavior: auto;
+  cursor: grabbing;
+}
+
+/* Don't let the browser's native image/video drag (ghost preview) hijack a
+   carousel drag. */
+.ds-slide__media img,
+.ds-slide__media video {
+  -webkit-user-drag: none;
+  user-select: none;
+}
+
 .ds-slide {
   flex: 0 0 calc(100% - 8%);
   scroll-snap-align: start;

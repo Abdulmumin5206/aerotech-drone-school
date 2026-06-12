@@ -781,29 +781,65 @@
     });
     window.addEventListener('resize', update);
 
-    // Drag-to-scroll on pointer devices
+    // Drag-to-scroll on pointer devices. Snap is disabled mid-drag (via the
+    // .is-dragging class) so the track tracks the pointer 1:1; on release we
+    // snap to the nearest slide.
     let isDown = false;
+    let dragging = false;
     let startX = 0;
     let startScroll = 0;
     track.addEventListener('pointerdown', (e) => {
       if (e.pointerType === 'touch') return;
       isDown = true;
+      dragging = false;
       startX = e.clientX;
       startScroll = track.scrollLeft;
-      track.setPointerCapture(e.pointerId);
     });
     track.addEventListener('pointermove', (e) => {
       if (!isDown) return;
-      track.scrollLeft = startScroll - (e.clientX - startX);
+      const dx = e.clientX - startX;
+      // Only commit to a drag once the pointer clearly moves — keeps plain
+      // clicks (and any future links inside a slide) working.
+      if (!dragging && Math.abs(dx) < 4) return;
+      if (!dragging) {
+        dragging = true;
+        track.classList.add('is-dragging');
+        track.setPointerCapture(e.pointerId);
+      }
+      e.preventDefault();
+      track.scrollLeft = startScroll - dx;
     });
     const endDrag = (e) => {
       if (!isDown) return;
       isDown = false;
-      try { track.releasePointerCapture(e.pointerId); } catch (_) {}
-      goTo(currentIndex());
+      if (dragging) {
+        dragging = false;
+        track.classList.remove('is-dragging');
+        try { track.releasePointerCapture(e.pointerId); } catch (_) {}
+        goTo(currentIndex());
+      }
     };
     track.addEventListener('pointerup', endDrag);
     track.addEventListener('pointercancel', endDrag);
+
+    // Mouse-wheel support: a mostly-vertical wheel over the carousel steps one
+    // slide at a time (via goTo, so it lands exactly on a snap point rather than
+    // fighting the mandatory snap). At the first/last slide the wheel passes
+    // through untouched, so the page scrolls on past — the carousel never traps
+    // the page. Horizontal wheel/trackpad swipes fall through to native scroll.
+    let wheelLock = false;
+    track.addEventListener('wheel', (e) => {
+      if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) return; // horizontal → native
+      const idx = currentIndex();
+      const goingNext = e.deltaY > 0;
+      if ((goingNext && idx >= slides.length - 1) || (!goingNext && idx <= 0)) return;
+      e.preventDefault();
+      e.stopPropagation(); // keep the page's smooth-scroll from also reacting
+      if (wheelLock) return;
+      wheelLock = true;
+      goTo(idx + (goingNext ? 1 : -1));
+      setTimeout(() => { wheelLock = false; }, 450);
+    }, { passive: false });
 
     update();
   };
@@ -1026,11 +1062,15 @@
       }
     };
 
-    // Don't hijack wheel inside internal scrollers (drawer, modal, menus) or a
-    // horizontal carousel — let their native scroll/containment run.
+    // Don't hijack wheel inside internal scrollers (drawer, modal, menus) that
+    // scroll vertically on their own — let their native scroll/containment run.
+    // The carousel is intentionally NOT here: it only scrolls horizontally, and
+    // horizontal-intent wheel already bails out above. Excluding it would hand
+    // vertical scroll back to native mid-glide, so the eased page scroll and the
+    // native scroll fight each other right over the carousel — the jump you feel.
     const isProtected = (el) =>
       !!(el && el.closest &&
-        el.closest('.cta-popup, .offer-modal, .mobile-menu, .nav-dropdown, .lang-switch__menu, .ds-carousel'));
+        el.closest('.cta-popup, .offer-modal, .mobile-menu, .nav-dropdown, .lang-switch__menu'));
     const bodyLocked = () => document.body.style.overflow === 'hidden';
 
     window.addEventListener('wheel', (e) => {
