@@ -837,15 +837,12 @@
   }
 }
 
-/* Teaser + Industries opt OUT of the scroll-driven cross-fade. Rather than
-   inheriting the light-zone's animated tokens, they pin the light theme on
-   permanently — background stays white, text stays dark — whether .is-light is
-   toggled on or off. They stay inside .light-zone-band so the fade-OUT still
-   triggers at the very bottom (off-screen, entering the footer) instead of
-   glitching mid-screen; their own opaque white background means the dark→white
-   cross-fade is simply never seen across these two sections. */
-.teaser,
-.industries {
+/* Teaser opts OUT of the scroll-driven cross-fade: it pins the light theme on
+   permanently — white background, dark text — whether .is-light is toggled or
+   not, so the dark→white cross-fade is never seen across it. (Industries used to
+   share this rule, but it now sits up in the dark Drone Services area, so it
+   keeps the default dark theme instead.) */
+.teaser {
   --bg: #ffffff;
   --bg-2: #f4f5f7;
   --line: rgba(0, 0, 0, 0.12);
@@ -928,21 +925,16 @@
 
 .industries-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   height: 100vh;
-  min-height: 700px;
-  max-height: 920px;
+  min-height: 640px;
+  max-height: 860px;
 }
 
 .industry-col {
   position: relative;
   overflow: hidden;
   cursor: pointer;
-  border-top: 1px solid var(--line);
-}
-
-.industry-col + .industry-col {
-  border-left: 1px solid var(--line);
 }
 
 .industry-visual {
@@ -1015,6 +1007,19 @@
   opacity: 0;
 }
 
+/* Mid-size screens: four full-height slats get too narrow, so wrap to 2x2. */
+@media (max-width: 1100px) {
+  .industries-grid {
+    grid-template-columns: repeat(2, 1fr);
+    height: auto;
+    max-height: none;
+  }
+  .industry-col {
+    height: 58vh;
+    min-height: 360px;
+  }
+}
+
 @media (max-width: 920px) {
   .industries-grid {
     grid-template-columns: 1fr;
@@ -1022,12 +1027,8 @@
     max-height: none;
   }
   .industry-col {
-    height: 70vh;
-    min-height: 400px;
-  }
-  .industry-col + .industry-col {
-    border-left: 0;
-    border-top: 1px solid var(--line);
+    height: 56vh;
+    min-height: 340px;
   }
   .industries {
     padding-top: 96px;
