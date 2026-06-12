@@ -961,18 +961,16 @@
   // WHEEL_MULT scales how far one wheel notch throws you.
   const initSmoothScroll = () => {
     const mq = (q) => window.matchMedia && window.matchMedia(q).matches;
-    // Apple devices already have excellent native momentum scrolling on their
-    // trackpads/Magic Mouse — layering our lerp on top stacks two smoothings and
-    // feels laggy/slow. So skip them and let the OS handle it. (Windows mouse
-    // wheels have no native momentum, so the smoothing helps there.)
-    const isApple = /Mac|iPhone|iPad|iPod/i.test(navigator.platform || navigator.userAgent || '');
-    if (isApple) return;
     // Touch screens already have native momentum (and don't fire wheel), and
     // reduced-motion users opt out entirely.
     if (mq('(prefers-reduced-motion: reduce)') || !mq('(pointer: fine)')) return;
 
-    const EASE = 0.1;        // 0–1 lerp factor per frame
-    const WHEEL_MULT = 0.9; // scale wheel delta — <1 = less travel per notch
+    // Apple trackpads/Magic Mouse carry their own momentum, so a soft lerp on top
+    // of that felt laggy/slow. Use a snappier ease on Apple so it stays responsive;
+    // Windows mouse wheels (no native momentum) keep the floatier glide.
+    const isApple = /Mac|iPhone|iPad|iPod/i.test(navigator.platform || navigator.userAgent || '');
+    const EASE = isApple ? 0.2 : 0.1; // 0–1 lerp factor per frame (higher = snappier)
+    const WHEEL_MULT = 0.9;           // scale wheel delta — <1 = less travel per notch
 
     let targetY = window.scrollY;
     let currentY = targetY;
